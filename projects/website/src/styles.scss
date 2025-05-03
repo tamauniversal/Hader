@@ -1,2 +1,156 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
+@theme {
+  --font-roboto: "Roboto", sans-serif;
+  --font-noto-sans-tc: "Noto Sans TC", sans-serif;
+  --font-montserrat: "Montserrat", sans-serif;
+  --color-primary: #E51C52;
+}
+
+
+/* Roboto Font */
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/font/Roboto-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Noto Sans TC Font */
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans TC';
+  src: url('/font/NotoSansTC-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Montserrat Font */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('/font/Montserrat-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}

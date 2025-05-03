@@ -1,40 +1,80 @@
-<header class="bg-white text-black border-b border-black border-solid">
-  <div class="container mx-auto flex items-center justify-between py-4 px-6">
+<header class="bg-white text-black border-b border-black border-solid relative z-50">
+  <div class="container mx-auto flex items-center justify-between py-8 px-2">
     <!-- Logo -->
     <div class="text-2xl font-bold">
-      <a routerLink="/" class="cursor-pointer">哈德網站</a>
+      <a routerLink="/" class="cursor-pointer">
+        <img src="/img/logo.svg" alt="Logo" class="h-8">
+      </a>
+    </div>
+
+    <!-- 漢堡按鈕 -->
+    <button (click)="toggleMenu()" class="block min-[1540px]:hidden p-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- 遮罩層 -->
+    <div *ngIf="isMenuOpen"
+         (click)="closeMenu()"
+         class="fixed top-[106px] left-0 right-0 bottom-0 bg-black/50 min-[1540px]:hidden
+                transition-opacity duration-300 ease-in-out
+                opacity-0 [&.active]:opacity-100"
+         [class.active]="isMenuOpen">
     </div>
 
     <!-- Navigation -->
-    <nav class="flex space-x-4">
-      <a routerLink="/about" class="relative cursor-pointer group">
+    <nav class="flex min-[1540px]:space-x-12 text-[20px] font-noto-sans-tc
+                fixed min-[1540px]:static top-[106px] left-0 right-0
+                bg-white min-[1540px]:bg-transparent
+                p-4 min-[1540px]:p-0
+                shadow-lg min-[1540px]:shadow-none
+                flex-col min-[1540px]:flex-row
+                space-y-4 min-[1540px]:space-y-0
+                transform transition-all duration-300 ease-in-out
+                min-[1540px]:opacity-100 min-[1540px]:translate-y-0
+                min-[1540px]:pointer-events-auto min-[1540px]:visible
+                z-50"
+         [ngClass]="{
+           'active': isMenuOpen,
+           'opacity-0': !isMenuOpen,
+           'translate-y-[-10px]': !isMenuOpen,
+           'pointer-events-none': !isMenuOpen,
+           'invisible': !isMenuOpen,
+         }">
+      <a routerLink="/about" class="relative cursor-pointer group" (click)="closeMenu()">
         關於哈德
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/registration-inquiry" class="relative cursor-pointer group">
+      <a routerLink="/schedule" class="relative cursor-pointer group" (click)="closeMenu()">
+        門診時間表
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+      </a>
+      <a routerLink="/registration-inquiry" class="relative cursor-pointer group" (click)="closeMenu()">
         掛號及查詢
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/fees" class="relative cursor-pointer group">
+      <a routerLink="/fees" class="relative cursor-pointer group" (click)="closeMenu()">
         收費標準
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/progress" class="relative cursor-pointer group">
+      <a routerLink="/progress" class="relative cursor-pointer group" (click)="closeMenu()">
         看診進度
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/education" class="relative cursor-pointer group">
+      <a routerLink="/education" class="relative cursor-pointer group" (click)="closeMenu()">
         衛教資訊
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/news" class="relative cursor-pointer group">
+      <a routerLink="/news" class="relative cursor-pointer group" (click)="closeMenu()">
         最新消息
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
-      <a routerLink="/contact" class="relative cursor-pointer group">
+      <a routerLink="/contact" class="relative cursor-pointer group" (click)="closeMenu()">
         聯絡我們
-        <span class="absolute left-1/2 bottom-0 h-[2px] w-0 bg-red-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
+        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
       </a>
+      <span class="flex gap-2 items-center"><img src="/img/phone.svg">0970503838</span>
     </nav>
   </div>
 </header>

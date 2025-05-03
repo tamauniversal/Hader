@@ -10,7 +10,7 @@ import { ContactComponent } from './feature/contact/contact.component';
 
 export const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'about-harder', component: AboutComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'registration-inquiry', component: RegistrationInquiryComponent },
   { path: 'fees', component: FeesComponent },
   { path: 'progress', component: ProgressComponent },
