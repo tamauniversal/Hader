@@ -1,1 +1,110 @@
-<p>info works!</p>
+<div class="flex flex-col w-full">
+  <!-- 區域 1 -->
+  <div class="w-full border-b-2 border-black">
+    <div class="flex flex-col min-[1440px]:flex-row gap-12 min-[1440px]:gap-0 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
+      <div class="flex flex-col flex-grow gap-10 lg:gap-20">
+        <!-- 左半內容 -->
+        <div class="flex flex-col gap-4">
+          <h3 class="text-[32px] lg:text-[46px] font-noto-sans-tc font-medium tracking-[28px]">
+            病人優先，<span class="inline md:hidden"><br></span>照護零距離
+          </h3>
+          <h4 class="text-[16px] lg:text-[28px] font-montserrat font-medium">Patients First, Closing the Distance.</h4>
+        </div>
+
+        <div class="grid lg:flex grid-cols-2 md:grid-cols-3 gap-10 w-full min-[1440px]:max-w-[936px] lg:justify-between lg:pb-[65px] items-center mt-10">
+          <div class="flex flex-row lg:flex-col gap-4 items-center w-fit relative">
+            <img src="/img/common/一般內科.svg" alt="一般內科" class="h-10 lg:h-20">
+            <h4 class="lg:absolute lg:left-1/2 lg:top-25 lg:-translate-x-1/2 text-[20px] lg:text-[30px] font-noto-sans-tc font-medium whitespace-nowrap">一般內科</h4>
+          </div>
+          <div class="flex flex-row lg:flex-col gap-4 items-center w-fit relative">
+            <img src="/img/common/新陳代謝科.svg" alt="新陳代謝科" class="h-10 lg:h-20">
+            <h4 class="lg:absolute lg:left-1/2 lg:top-25 lg:-translate-x-1/2 text-[20px] lg:text-[30px] font-noto-sans-tc font-medium whitespace-nowrap">新陳代謝科</h4>
+          </div>
+          <div class="flex flex-row lg:flex-col gap-4 items-center w-fit relative">
+            <img src="/img/common/心臟血管科.svg" alt="心臟血管科" class="h-10 lg:h-20">
+            <h4 class="lg:absolute lg:left-1/2 lg:top-25 lg:-translate-x-1/2 text-[20px] lg:text-[30px] font-noto-sans-tc font-medium whitespace-nowrap">心臟血管科</h4>
+          </div>
+          <div class="flex flex-row lg:flex-col gap-4 items-center w-fit relative">
+            <img src="/img/common/腎臟科.svg" alt="腎臟科" class="h-10 lg:h-20">
+            <h4 class="lg:absolute lg:left-1/2 lg:top-25 lg:-translate-x-1/2 text-[20px] lg:text-[30px] font-noto-sans-tc font-medium whitespace-nowrap">腎臟科</h4>
+          </div>
+          <div class="flex flex-row lg:flex-col gap-4 items-center w-fit relative">
+            <img src="/img/common/兒科.svg" alt="兒科" class="h-10 lg:h-20">
+            <h4 class="lg:absolute lg:left-1/2 lg:top-25 lg:-translate-x-1/2 text-[20px] lg:text-[30px] font-noto-sans-tc font-medium whitespace-nowrap">兒科</h4>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-end justify-end">
+        <!-- 右半內容 -->
+        <a routerLink="/about"
+          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">關於哈德</span>
+          <span class="text-[32px] lg:text-[50px]">&#9654;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 區域 2 -->
+  <div class="w-full border-b-2 border-black">
+    <div class="flex flex-col min-[1440px]:flex-row gap-12 min-[1440px]:gap-8 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
+      <div class="flex flex-col flex-grow gap-10 lg:gap-20 overflow-x-auto -m-4 p-4">
+        <!-- 左半內容 -->
+        <div class="flex flex-col w-full min-w-fit min-[1440px]:w-[937px]">
+          @for  (item of newsList; track item; let i = $index) {
+            <a [routerLink]="item.url" [ngClass]="i % 2 === 0 ? 'bg-[#F0F0F0]' : 'bg-white'"
+              class="outline-btn border-transparent grid grid-cols-[auto_1fr] p-4 *:whitespace-nowrap">
+              <div class="pr-4 text-[20px] lg:pl-4 lg:text-[28px] font-roboto font-medium">
+                {{ item.date }}
+              </div>
+              <div class="lg:pl-30 text-[20px] lg:text-[28px] font-roboto">
+                {{ item.title }}
+              </div>
+            </a>
+          }
+        </div>
+
+      </div>
+      <div class="flex items-end justify-end">
+        <!-- 右半內容 -->
+        <a routerLink="/news"
+          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">最新消息</span>
+          <span class="text-[32px] lg:text-[50px]">&#9654;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 區域 3 -->
+  <div class="w-full border-b-2 border-black">
+    <div class="flex flex-col min-[1440px]:flex-row gap-12 min-[1440px]:gap-0 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
+      <div class="flex flex-col flex-grow gap-10 lg:gap-20">
+        <!-- 左半內容 -->
+        <div class="flex flex-col md:flex-row gap-8 w-full min-w-fit min-[1440px]:w-[937px]">
+          @for (item of educationList; track item) {
+            <a [routerLink]="item.url" class="flex flex-1 md:w-0 p-8 border border-solid border-[#646464] rounded-[32px] cursor-pointer hover:border-primary hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] transition-all duration-300 ease-in-out">
+              <div class="flex flex-col flex-1 gap-4 justify-between">
+                <div class="w-fit p-2 text-[20px] text-white bg-black rounded-[12px] font-noto-sans-tc font-medium leading-none"
+                     [innerText]="item.tag"></div>
+                <div class="text-[30px] font-noto-sans-tc font-medium whitespace-pre-wrap break-all"
+                     [innerText]="item.title"></div>
+              </div>
+              <img [src]="item.imgUrl" alt="people-icon" class="flex-shrink-0 self-end h-[150px] lg:h-[200px] translate-y-8">
+            </a>
+          }
+        </div>
+
+
+      </div>
+      <div class="flex items-end justify-end">
+        <!-- 右半內容 -->
+        <a routerLink="/education"
+          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">衛教資訊</span>
+          <span class="text-[32px] lg:text-[50px]">&#9654;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

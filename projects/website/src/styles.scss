@@ -14,7 +14,7 @@
 
 @layer components {
   .outline-btn {
-    @apply flex border border-solid border-1 border-[#646464] text-black transition duration-100 cursor-pointer hover:border-primary hover:bg-primary hover:text-white hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)];
+    @apply flex border border-solid border-1 border-[#646464] text-black transition duration-100 cursor-pointer hover:!border-primary hover:!bg-primary hover:text-white hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] hover:z-10;
   }
 }
 
