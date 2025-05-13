@@ -1,0 +1,94 @@
+<div class="relative">
+  <div class="relative h-[calc(100vh-var(--header-height))] min-h-[600px]">
+    <!-- 背景層 -->
+    <div class="absolute inset-0 bg-[#DBDBDB]">
+      <!-- 圓形背景元素 -->
+      <div
+        class="absolute w-[max(calc(100vh*4/3),1000px)] h-[max(calc(100vh*4/3),1000px)] rounded-full bg-white/60 left-1/2 z-10"
+        style="transform: translateX(-50%); bottom: min(calc(-100vh/3), -250px);"
+      ></div>
+    </div>
+
+    <!-- 內容層 -->
+    <div
+      class="flex flex-col items-center justify-around h-full px-1 py-8 relative select-none z-20"
+    >
+      <!-- 標題 -->
+      <div class="flex flex-col items-center gap-3 px-4 w-full">
+        <h1 class="font-noto-sans-tc text-[32px] lg:text-[36px] font-semibold">
+          病 人 優 先，照 護 零 距 離
+        </h1>
+        <h2 class="font-montserrat text-[20px] lg:text-[26px] font-medium">
+          Patients First, Closing the Distance.
+        </h2>
+      </div>
+
+      <!-- 專注領域 -->
+      <div class="flex flex-col items-center gap-6 px-4 w-full">
+        <h3 class="font-montserrat text-[20px] lg:text-[26px] font-medium">
+          專注領域-慢性疾病的全人照護
+        </h3>
+        <div class="flex items-center gap-6">
+          @for (disease of diseases; track disease) {
+          <div class="flex items-center gap-2">
+            <img
+              src="/img/common/check-bg.svg"
+              alt="check-bg"
+              class="flex-shrink-0 w-6 h-6 translate-y-[2px]"
+            />
+            <span
+              class="font-noto-sans-tc text-[18px] lg:text-[24px] leading-none"
+              >{{ disease }}</span
+            >
+          </div>
+          }
+        </div>
+      </div>
+
+      <!-- 圖片 -->
+      <div class="flex flex-col items-center px-4 w-full h-1/3">
+        <img
+          src="/img/about/banner.svg"
+          alt="banner"
+          class="h-full object-contain"
+        />
+      </div>
+
+      <!-- 文字 -->
+      <div class="flex flex-col items-center gap-6 px-4 w-full">
+        <div class="flex items-center gap-6">
+          @for (job of jobs; track jobs) {
+          <div class="flex items-center gap-2">
+            <img
+              src="/img/common/check.svg"
+              alt="check"
+              class="flex-shrink-0 w-4 h-4 translate-y-[2px]"
+            />
+            <span
+              class="font-noto-sans-tc text-[18px] lg:text-[24px] leading-none"
+              >{{ job }}</span
+            >
+          </div>
+          }
+        </div>
+        <h3 class="font-montserrat text-[20px] lg:text-[26px] font-medium">
+          專業醫療團隊
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative">
+    <!-- 粉色背景層 -->
+    <div class="absolute inset-x-0 top-0 h-[calc(100vh/3)] min-h-[250px] bg-[#E51C52]/5"></div>
+
+    <!-- 掛號按钮 -->
+    <div class="flex items-center justify-center h-[calc(100vh/3)] min-h-[250px] w-full relative z-20">
+      <a
+        routerLink="/registration-inquiry"
+        class="outline-btn flex-shrink-0 justify-center w-full h-fit md:max-w-[400px] py-6 rounded-[14px] font-noto-sans-tc text-[26px] font-light"
+        >我要掛號</a
+      >
+    </div>
+  </div>
+</div>

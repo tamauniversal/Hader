@@ -41,45 +41,17 @@
            'pointer-events-none': !isMenuOpen,
            'invisible': !isMenuOpen,
          }">
-      <a routerLink="/about" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        關於哈德
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/schedule" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        門診時間表
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/registration-inquiry" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        掛號及查詢
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/fees" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        收費標準
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/progress" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        看診進度
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/education" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        衛教資訊
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/news" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        最新消息
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
-
-      <a routerLink="/contact" class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300" (click)="closeMenu()">
-        聯絡我們
-        <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
-      </a>
+      <ng-container *ngFor="let item of navItems">
+        <a [routerLink]="item.path"
+           [fragment]="item.fragment"
+           [routerLinkActive]="!item.fragment ? 'text-primary' : ''"
+           [routerLinkActiveOptions]="{exact: true}"
+           class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300"
+           (click)="closeMenu()">
+          {{ item.label }}
+          <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
+        </a>
+      </ng-container>
 
       <span class="flex gap-2 items-center"><img src="/img/phone.svg">0970503838</span>
     </nav>

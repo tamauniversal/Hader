@@ -1,0 +1,55 @@
+<div class="p-25 bg-[#F0F0F0]">
+  <div class="flex flex-col gap-8">
+    @for (doctor of doctorList; track $index) {
+    <div class="relative pt-30 min-h-[600px]">
+      <div class="grid grid-cols-[500px_1fr] gap-y-4">
+        <div class="text-[38px] font-semibold">{{ doctor.name }}</div>
+        <div class="text-primary text-[36px] font-medium">
+          {{ doctor.department }}
+        </div>
+        <div class="col-span-2 w-full h-[1px] bg-primary"></div>
+        <div class="text-[32px] font-semibold">醫師</div>
+        <div class="flex flex-col gap-3">
+          <label class="text-[20px] font-noto-sans-tc font-medium"
+            >主治項目：</label
+          >
+          <div class="flex flex-wrap gap-y-4">
+            @for (specialty of doctor.specialties; track $index) {
+            <div
+              class="text-[20px] font-noto-sans-tc font-medium whitespace-nowrap leading-none border-r border-black pr-2 mr-2 last:border-r-0"
+            >
+              {{ specialty }}
+            </div>
+            }
+          </div>
+
+          <div class="flex flex-col mt-6 min-[1540px]:flex-row">
+            <div class="flex flex-col flex-1 gap-3">
+              <label class="text-[20px] font-noto-sans-tc font-medium"
+                >經歷：</label
+              >
+              @for (experience of doctor.experience; track $index) {
+              <div class="text-[20px] font-noto-sans-tc font-medium">
+                {{ experience }}
+              </div>
+              }
+            </div>
+
+            <a
+              routerLink="/registration-inquiry"
+              class="outline-btn flex-shrink-0 justify-center mt-5 w-full h-fit md:max-w-[400px] py-6 rounded-[14px] font-noto-sans-tc text-[26px] font-light self-end min-[1540px]:self-start"
+              >我要掛號</a
+            >
+          </div>
+        </div>
+      </div>
+
+      <img
+        [src]="doctor.imgUrl"
+        alt="doctor"
+        class="absolute top-0 right-[calc(100%-450px)] h-[500px]"
+      />
+    </div>
+    }
+  </div>
+</div>
