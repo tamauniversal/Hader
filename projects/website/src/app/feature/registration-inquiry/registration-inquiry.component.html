@@ -1,1 +1,446 @@
-<p>registration-inquiry works!</p>
+<div
+  class="relative h-[calc(100vh-var(--header-height))] min-h-[600px] flex flex-col items-center justify-center"
+>
+  <!-- 掛號查詢系統 -->
+  <div class="mx-auto w-[1300px] px-12 py-8 flex flex-col">
+    <!-- Tab 選擇器 - 與表單同寬 -->
+    <div class="flex justify-center w-full mb-0 relative">
+      <div class="inline-flex w-full">
+        <button
+          class="flex-1 py-[20px] font-noto-sans-tc text-[36px] font-medium border-0 cursor-pointer relative z-10"
+          [ngClass]="
+            activeTab === 'registration'
+              ? 'bg-[#F3F3F3] text-primary rounded-tr-[50px] shadow-[2px_0px_5px_rgba(0,0,0,0.25)]'
+              : 'bg-[#C5C5C5] text-[#7F7F7F] rounded-tl-sm shadow-[inset_0px_-2px_5px_rgba(0,0,0,0.25)]'
+          "
+          (click)="activeTab = 'registration'"
+          style="padding-right: 50px; margin-right: -50px"
+        >
+          門診掛號
+        </button>
+        <button
+          class="flex-1 py-[20px] font-noto-sans-tc text-[36px] font-medium border-0 shadow-[6px_6px_6px_rgba(0,0,0,0.25)] cursor-pointer relative"
+          [ngClass]="
+            activeTab === 'inquiry'
+              ? 'bg-[#F3F3F3] text-primary rounded-tl-[50px] rounded-tr-sm z-10 shadow-[6px_6px_6px_rgba(0,0,0,0.25),_-2px_0px_5px_rgba(0,0,0,0.25)]'
+              : 'bg-[#C5C5C5] text-[#7F7F7F] rounded-tr-[50px] shadow-[inset_0px_-2px_5px_rgba(0,0,0,0.25),6px_6px_6px_rgba(0,0,0,0.25)]'
+          "
+          (click)="activeTab = 'inquiry'"
+          style="padding-left: 50px"
+        >
+          掛號查詢
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-col">
+      <!-- Tab 內容 -->
+      <div
+        class="border-0 bg-[#F3F3F3] p-8 rounded-b-sm shadow-[6px_6px_6px_rgba(0,0,0,0.25)] z-10"
+      >
+        <!-- 掛號系統內容 -->
+        @if (activeTab === 'registration') {
+          @if (!registrationComplete) {
+            <!-- 掛號標籤內容 -->
+            <div class="flex gap-8">
+              <!-- 左側表單欄位 -->
+              <div class="shrink-0">
+                <form [formGroup]="registrationForm" class="space-y-6">
+                  <!-- 身分證/居留證號 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >身分證/居留證號</label
+                    >
+                  </div>
+
+                  <!-- 姓名 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >姓名</label
+                    >
+                  </div>
+
+                  <!-- 生日 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >生日</label
+                    >
+                  </div>
+
+                  <!-- 聯絡電話 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >聯絡電話</label
+                    >
+                  </div>
+
+                  <!-- 科別/醫師 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >科別/醫師</label
+                    >
+                  </div>
+
+                  <!-- 預約時間 -->
+                  <div class="flex items-center">
+                    <label
+                      class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                      >預約時間</label
+                    >
+                  </div>
+                </form>
+              </div>
+
+              <!-- 右側輸入欄位 -->
+              <div class="flex-1 pl-8">
+                <form
+                  [formGroup]="registrationForm"
+                  (submit)="onRegistrationSubmit()"
+                  class="space-y-6"
+                >
+                  <!-- 身分證/居留證號 -->
+                  <div class="flex items-center">
+                    <div class="w-full">
+                      <input
+                        #formInput
+                        id="idNumber"
+                        formControlName="idNumber"
+                        type="text"
+                        [ngClass]="{'error-input': registrationForm.controls.idNumber.invalid && registrationForm.controls.idNumber.touched}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        placeholder="請輸入身分證/居留證號"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- 姓名 -->
+                  <div class="flex items-center">
+                    <div class="w-full">
+                      <input
+                        #formInput
+                        id="name"
+                        formControlName="name"
+                        type="text"
+                        [ngClass]="{'error-input': registrationForm.controls.name.invalid && registrationForm.controls.name.touched}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        placeholder="請輸入姓名"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- 生日 -->
+                  <div class="flex items-center">
+                    <div class="w-full">
+                      <input
+                        #formInput
+                        id="birthday"
+                        formControlName="birthday"
+                        type="date"
+                        [ngClass]="{'error-input': registrationForm.controls.birthday.invalid && registrationForm.controls.birthday.touched}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- 聯絡電話 -->
+                  <div class="flex items-center">
+                    <div class="w-full">
+                      <input
+                        #formInput
+                        id="phone"
+                        formControlName="phone"
+                        type="tel"
+                        [ngClass]="{'error-input': registrationForm.controls.phone.invalid && registrationForm.controls.phone.touched}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        placeholder="請輸入聯絡電話"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- 科別/醫師 -->
+                  <div class="flex items-center">
+                    <div class="w-full relative">
+                      @if (isBrowser) {
+                        <app-dropdown
+                          #formInput
+                          [options]="doctorOptions"
+                          [defaultText]="'請選擇科別/醫師'"
+                          [error]="registrationForm.controls.doctor.invalid && registrationForm.controls.doctor.touched"
+                          (selectionChange)="onDoctorSelected($event)"
+                          #doctorRef
+                        ></app-dropdown>
+                      }
+                    </div>
+                  </div>
+
+                  <!-- 預約時間 -->
+                  <div class="flex items-center">
+                    <div class="w-full relative">
+                      @if (isBrowser) {
+                        <app-dropdown
+                          #formInput
+                          [options]="appointmentTimeOptions"
+                          [defaultText]="'請選擇預約時間'"
+                          [error]="registrationForm.controls.appointmentTime.invalid && registrationForm.controls.appointmentTime.touched"
+                          (selectionChange)="onTimeSelected($event)"
+                          #timeRef
+                        ></app-dropdown>
+                      }
+                    </div>
+                  </div>
+
+                  <!-- 掛號按鈕 -->
+                  <div class="">
+                    <button
+                      type="submit"
+                      class="w-full outline-btn primary-hover-style justify-center py-3 text-xl"
+                    >
+                      掛號
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          } @else {
+            <!-- 掛號完成資訊 -->
+            <div class="mx-auto max-w-[900px]">
+              <div class="flex">
+                <!-- 左側留白 -->
+                <div class="w-[45%]"></div>
+
+                <!-- 右側資訊 -->
+                <div class="w-[55%] space-y-6">
+                  <h3
+                    class="text-2xl font-noto-sans-tc font-bold text-center text-primary"
+                  >
+                    掛號成功
+                  </h3>
+                  <div class="space-y-4">
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">身分證/居留證號</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ registrationForm.controls.idNumber.value }}
+                      </p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">姓名</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ registrationForm.controls.name.value }}
+                      </p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">生日</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ registrationForm.controls.birthday.value | date:'yyyy/MM/dd' }}
+                      </p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">聯絡電話</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ registrationForm.controls.phone.value }}
+                      </p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">科別/醫師</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ selectedDoctor ? selectedDoctor.label : "未選擇" }}
+                      </p>
+                    </div>
+                    <div class="space-y-1">
+                      <p class="text-gray-600 font-noto-sans-tc">預約時間</p>
+                      <p
+                        class="font-noto-sans-tc font-medium text-xl bg-white rounded-sm px-4 py-2"
+                      >
+                        {{ selectedTime ? selectedTime.label : "未選擇" }}
+                      </p>
+                    </div>
+
+                    <!-- 取消掛號按鈕 -->
+                    <div class="pt-6">
+                      <button
+                        type="button"
+                        (click)="registrationComplete = false"
+                        class="w-full outline-btn primary-hover-style justify-center py-3 text-xl"
+                      >
+                        取消掛號
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          }
+        }
+
+        <!-- 查詢標籤內容 -->
+        @if (activeTab === 'inquiry' && !registrationComplete) {
+          <div class="flex gap-8">
+            <!-- 左側表單欄位 -->
+            <div class="shrink-0">
+              <form [formGroup]="inquiryForm" class="space-y-6">
+                <!-- 身分證/居留證號 -->
+                <div class="flex items-center">
+                  <label
+                    class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                    >身分證/居留證號</label
+                  >
+                </div>
+
+                <!-- 姓名 -->
+                <div class="flex items-center">
+                  <label
+                    class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                    >姓名</label
+                  >
+                </div>
+
+                <!-- 生日 -->
+                <div class="flex items-center">
+                  <label
+                    class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                    >生日</label
+                  >
+                </div>
+
+                <!-- 聯絡電話 -->
+                <div class="flex items-center">
+                  <label
+                    class="block font-noto-sans-tc lg:text-[32px] font-medium text-gray-700 pl-2"
+                    >聯絡電話</label
+                  >
+                </div>
+              </form>
+            </div>
+
+            <!-- 右側輸入欄位 -->
+            <div class="flex-1 pl-8">
+              <form
+                [formGroup]="inquiryForm"
+                (submit)="onInquirySubmit()"
+                class="space-y-6 inquiryForm"
+              >
+                <!-- 身分證/居留證號 -->
+                <div class="flex items-center">
+                  <div class="w-full">
+                    <input
+                      #formInput
+                      id="inquiryIdNumber"
+                      formControlName="idNumber"
+                      type="text"
+                      [ngClass]="{'error-input': inquiryForm.controls.idNumber.invalid && inquiryForm.controls.idNumber.touched}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      placeholder="請輸入身分證/居留證號"
+                    />
+                  </div>
+                </div>
+
+                <!-- 姓名 -->
+                <div class="flex items-center">
+                  <div class="w-full">
+                    <input
+                      #formInput
+                      id="inquiryName"
+                      formControlName="name"
+                      type="text"
+                      [ngClass]="{'error-input': inquiryForm.controls.name.invalid && inquiryForm.controls.name.touched}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      placeholder="請輸入姓名"
+                    />
+                  </div>
+                </div>
+
+                <!-- 生日 -->
+                <div class="flex items-center">
+                  <div class="w-full">
+                    <input
+                      #formInput
+                      id="inquiryBirthday"
+                      formControlName="birthday"
+                      type="date"
+                      [ngClass]="{'error-input': inquiryForm.controls.birthday.invalid && inquiryForm.controls.birthday.touched}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                    />
+                  </div>
+                </div>
+
+                <!-- 聯絡電話 -->
+                <div class="flex items-center">
+                  <div class="w-full">
+                    <input
+                      #formInput
+                      id="inquiryPhone"
+                      formControlName="phone"
+                      type="tel"
+                      [ngClass]="{'error-input': inquiryForm.controls.phone.invalid && inquiryForm.controls.phone.touched}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      placeholder="請輸入聯絡電話"
+                    />
+                  </div>
+                </div>
+
+                <!-- 送出按鈕 -->
+                <div class="pt-10">
+                  <button
+                    type="submit"
+                    class="w-full outline-btn primary-hover-style justify-center py-3 text-xl"
+                  >
+                    提交查詢
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- 收費標準按鈕 -->
+      <div class="absolute bottom-4 right-4">
+        <button
+          (click)="goToStandards()"
+          class="flex items-center text-primary"
+        >
+          <span class="mr-1">收費標準</span>
+          <span
+            class="border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent border-l-[6px] border-l-primary"
+          ></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 成功訊息 -->
+  @if (registrationComplete) {
+    <div class="flex flex-col items-center justify-center h-[400px] text-center">
+      <div class="text-3xl font-medium mb-6">操作成功!</div>
+      <div class="text-xl mb-8">
+        {{
+          activeTab === "registration"
+            ? "掛號已完成，請在指定時間到院"
+            : "查詢結果已發送至您的電話"
+        }}
+      </div>
+      <button
+        type="button"
+        (click)="registrationComplete = false"
+        class="bg-primary text-white px-8 py-3 rounded-md text-xl"
+      >
+        返回
+      </button>
+    </div>
+  }
+</div>

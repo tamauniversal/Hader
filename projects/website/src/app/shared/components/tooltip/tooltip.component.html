@@ -1,0 +1,6 @@
+<div *ngIf="visible" class="tooltip-container" [ngClass]="'tooltip-' + position">
+  <div class="tooltip-content">
+    {{ message }}
+  </div>
+  <div *ngIf="showArrow" class="tooltip-arrow" [ngClass]="'arrow-' + position"></div>
+</div>

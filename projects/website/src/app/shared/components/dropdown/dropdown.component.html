@@ -1,0 +1,49 @@
+<div class="dropdown-container" [class.has-error]="error">
+  <!-- 使用新的overlay-origin元素作為 Overlay 的原點 -->
+  <div class="overlay-origin" cdkOverlayOrigin #origin="cdkOverlayOrigin">
+    <button
+      #dropdownButton
+      type="button"
+      class="dropdown-button"
+      [class.disabled]="disabled"
+      (click)="toggle()"
+      aria-haspopup="true"
+      [attr.aria-expanded]="isOpen"
+      [disabled]="disabled">
+      <span class="selected-text">
+        {{ selectedOption ? selectedOption.label : defaultText }}
+      </span>
+      <span class="arrow-icon">
+        <i [class]="isOpen ? 'arrow up' : 'arrow down'"></i>
+      </span>
+    </button>
+  </div>
+
+  <!-- 使用新的origin作為Overlay連接點 -->
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="isOpen"
+    [cdkConnectedOverlayPositions]="positions"
+    [cdkConnectedOverlayHasBackdrop]="true"
+    [cdkConnectedOverlayBackdropClass]="'cdk-overlay-transparent-backdrop'"
+    [cdkConnectedOverlayPanelClass]="'dropdown-overlay-panel'"
+    [cdkConnectedOverlayWidth]="triggerWidth"
+    (backdropClick)="close()"
+    (detach)="close()">
+    <div class="dropdown-menu" [style.width.px]="triggerWidth">
+      @if (options && options.length > 0) {
+        @for (option of options; track option.value) {
+          <div
+            class="dropdown-item"
+            [class.selected]="selectedOption?.value === option.value"
+            (click)="selectOption(option)">
+            {{ option.label }}
+          </div>
+        }
+      } @else {
+        <div class="dropdown-item no-options">無可用選項</div>
+      }
+    </div>
+  </ng-template>
+</div>

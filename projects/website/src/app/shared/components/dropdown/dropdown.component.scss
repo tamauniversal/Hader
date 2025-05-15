@@ -1,0 +1,144 @@
+// 下拉選單樣式
+:host {
+  display: block;
+  width: 100%;
+}
+
+// 可以根據需要添加更多樣式
+
+.dropdown-container {
+  width: 100%;
+  position: relative;
+
+  &.has-error {
+    .dropdown-button {
+      border: 1px solid #ff4d4f;
+      box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
+    }
+  }
+}
+
+.overlay-origin {
+  width: 100%;
+  display: block;
+}
+
+.dropdown-button {
+  width: 100%;
+  height: 48px;
+  padding: 8px 16px;
+  text-align: left;
+  background-color: white;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &:focus {
+    outline: none;
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+
+  &.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.selected-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.arrow-icon {
+  font-size: 12px;
+  min-width: 12px;
+  margin-left: 8px;
+}
+
+.dropdown-menu {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  overflow: auto;
+  max-height: 240px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+  }
+
+  &.selected {
+    background-color: rgba(24, 144, 255, 0.1);
+    color: #1890ff;
+  }
+
+  &.no-options {
+    color: #999;
+    cursor: default;
+    text-align: center;
+  }
+}
+
+// 在大螢幕上顯示更大的字體
+@media (min-width: 1024px) {
+  .dropdown-button {
+    font-size: 18px;
+  }
+
+  .dropdown-item {
+    font-size: 18px;
+  }
+}
+
+// 自定義下拉選單面板樣式
+::ng-deep .dropdown-overlay-panel {
+  /* 使用精確寬度，不要使用 auto */
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  margin-top: 0 !important;
+}
+
+// 確保遮罩可點擊
+::ng-deep .cdk-overlay-backdrop {
+  cursor: pointer;
+}
+
+/* 確保Overlay正確對齊Trigger */
+::ng-deep .cdk-overlay-connected-position-bounding-box {
+  display: flex !important;
+}
+
+::ng-deep .cdk-overlay-pane {
+  margin-top: 0 !important;
+  display: flex !important;
+}
+
+/* 透明背景 */
+::ng-deep .cdk-overlay-transparent-backdrop {
+  background: rgba(0, 0, 0, 0.1); /* 輕微的背景透明度，使用戶可以看到背景但不會干擾UI */
+}
+
+.error-indicator {
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #ff4d4f;
+}

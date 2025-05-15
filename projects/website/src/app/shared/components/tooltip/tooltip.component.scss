@@ -1,0 +1,73 @@
+:host {
+  display: contents;
+}
+
+.tooltip-container {
+  position: relative;
+
+  .tooltip-content {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    max-width: 250px;
+    word-wrap: break-word;
+  }
+
+  .tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+
+    &.arrow-top {
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-bottom-color: rgba(0, 0, 0, 0.8);
+      border-top: 0;
+    }
+
+    &.arrow-right {
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-left-color: rgba(0, 0, 0, 0.8);
+      border-right: 0;
+    }
+
+    &.arrow-bottom {
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-top-color: rgba(0, 0, 0, 0.8);
+      border-bottom: 0;
+    }
+
+    &.arrow-left {
+      right: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      border-right-color: rgba(0, 0, 0, 0.8);
+      border-left: 0;
+    }
+  }
+}
+
+// 根據位置調整margin
+.tooltip-top {
+  margin-bottom: 10px;
+}
+
+.tooltip-right {
+  margin-left: 10px;
+}
+
+.tooltip-bottom {
+  margin-top: 10px;
+}
+
+.tooltip-left {
+  margin-right: 10px;
+}
