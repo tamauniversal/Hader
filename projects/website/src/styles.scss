@@ -12,9 +12,13 @@
   --color-primary: #E51C52;
 }
 
+
 @layer components {
+  .primary-hover-style {
+    @apply flex text-black transition duration-100 cursor-pointer hover:!border-primary hover:!bg-primary hover:text-white hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] hover:z-10;
+  }
   .outline-btn {
-    @apply flex border border-solid border-1 border-[#646464] text-black transition duration-100 cursor-pointer hover:!border-primary hover:!bg-primary hover:text-white hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] hover:z-10;
+    @apply border border-solid border-[#646464] w-full h-fit md:max-w-[400px] py-4 md:py-6 rounded-[14px] font-noto-sans-tc text-[20px] md:text-[26px] font-light;
   }
 }
 

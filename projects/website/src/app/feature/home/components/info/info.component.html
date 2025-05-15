@@ -37,7 +37,7 @@
       <div class="flex items-end justify-end">
         <!-- 右半內容 -->
         <a routerLink="/about"
-          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          class="outline-btn primary-hover-style w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
           <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">關於哈德</span>
           <span class="text-[32px] lg:text-[50px]">&#9654;</span>
         </a>
@@ -53,7 +53,7 @@
         <div class="flex flex-col w-full min-w-fit min-[1440px]:w-[937px]">
           @for  (item of newsList; track item; let i = $index) {
             <a [routerLink]="item.url" [ngClass]="i % 2 === 0 ? 'bg-[#F0F0F0]' : 'bg-white'"
-              class="outline-btn border-transparent grid grid-cols-[auto_1fr] p-4 *:whitespace-nowrap">
+              class="primary-hover-style grid grid-cols-[auto_1fr] p-4 *:whitespace-nowrap">
               <div class="pr-4 text-[20px] lg:pl-4 lg:text-[28px] font-roboto font-medium">
                 {{ item.date }}
               </div>
@@ -68,7 +68,7 @@
       <div class="flex items-end justify-end">
         <!-- 右半內容 -->
         <a routerLink="/news"
-          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          class="outline-btn primary-hover-style w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
           <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">最新消息</span>
           <span class="text-[32px] lg:text-[50px]">&#9654;</span>
         </a>
@@ -100,7 +100,7 @@
       <div class="flex items-end justify-end">
         <!-- 右半內容 -->
         <a routerLink="/education"
-          class="outline-btn w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
+          class="outline-btn primary-hover-style w-[250px] lg:w-[440px] pl-10 lg:pl-20 pr-6 py-1 flex items-center justify-between gap-2 rounded-full">
           <span class="text-[16px] lg:text-[28px] font-noto-sans-tc font-medium">衛教資訊</span>
           <span class="text-[32px] lg:text-[50px]">&#9654;</span>
         </a>

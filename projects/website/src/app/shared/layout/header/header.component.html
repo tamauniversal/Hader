@@ -1,4 +1,4 @@
-<header class="bg-white text-black border-b border-black border-solid relative z-50">
+<header class="max-w-[100vw] bg-white text-black border-b border-black border-solid relative z-50">
   <div class="container mx-auto min-w-full min-[1540px]:min-w-fit flex items-center justify-between py-8 px-8 min-[1540px]:px-2">
     <!-- Logo -->
     <div class="text-2xl font-bold">
@@ -17,7 +17,7 @@
     <!-- 遮罩層 -->
     <div *ngIf="isMenuOpen"
          (click)="closeMenu()"
-         class="fixed top-[106px] left-0 right-0 bottom-0 bg-black/50 min-[1540px]:hidden
+         class="fixed top-[106px] left-0 right-0 bottom-0 max-w-[100vw] bg-black/50 min-[1540px]:hidden
                 transition-opacity duration-300 ease-in-out
                 opacity-0 [&.active]:opacity-100"
          [class.active]="isMenuOpen">
@@ -25,7 +25,8 @@
 
     <!-- Navigation -->
     <nav class="flex min-[1540px]:space-x-12 text-[20px] font-noto-sans-tc
-                fixed min-[1540px]:static top-[98px] left-0 right-0
+                fixed min-[1540px]:static top-[96px] left-0 right-0
+                max-w-[100vw]
                 bg-white min-[1540px]:bg-transparent
                 *:p-4 *:min-[1540px]:p-0 space-y-0
                 shadow-lg min-[1540px]:shadow-none
