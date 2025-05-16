@@ -21,14 +21,6 @@ export interface DropdownOption {
   label: string;
 }
 
-export interface ErrorTooltipOptions {
-  text?: string;
-  position?: 'top' | 'bottom' | 'left' | 'right';
-  duration?: number;
-  showArrow?: boolean;
-  showBorder?: boolean;
-}
-
 @Component({
   selector: 'app-dropdown',
   templateUrl: './dropdown.component.html',
@@ -42,7 +34,6 @@ export class DropdownComponent implements OnInit, AfterViewInit {
   @Input() defaultText = '請選擇';
   @Input() disabled = false;
   @Input() error = false;
-  @Input() errorTooltipOptions?: ErrorTooltipOptions;
 
   @Output() selectionChange = new EventEmitter<DropdownOption>();
 
@@ -54,7 +45,6 @@ export class DropdownComponent implements OnInit, AfterViewInit {
   triggerWidth = 0;
   isBrowser: boolean;
 
-  // 定義下拉選單與觸發元素的位置關聯
   positions: ConnectedPosition[] = [
     {
       originX: 'start',
@@ -80,7 +70,6 @@ export class DropdownComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    // 在初始化時嘗試獲取元素寬度，僅在瀏覽器環境下執行
     if (this.isBrowser) {
       setTimeout(() => {
         this.updateTriggerWidth();
@@ -90,11 +79,19 @@ export class DropdownComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // 確保僅在瀏覽器環境下執行DOM操作
     if (this.isBrowser) {
       try {
-        this.updateTriggerWidth();
-        this.cd.markForCheck();
+        if (this.buttonRef?.nativeElement) {
+          this.triggerWidth = this.buttonRef.nativeElement.offsetWidth || 300;
+          this.cd.detectChanges();
+        }
+
+        setTimeout(() => {
+          if (this.buttonRef?.nativeElement) {
+            this.triggerWidth = this.buttonRef.nativeElement.offsetWidth || 300;
+            this.cd.markForCheck();
+          }
+        }, 50);
       } catch (error) {
         console.error('Error in ngAfterViewInit:', error);
       }
@@ -109,32 +106,32 @@ export class DropdownComponent implements OnInit, AfterViewInit {
     }
   }
 
-  updateTriggerWidth() {
-    // 確保僅在瀏覽器環境下執行DOM操作
+  updateTriggerWidth(): number {
     if (this.isBrowser && this.buttonRef && this.buttonRef.nativeElement) {
       try {
-        // 使用setTimeout確保DOM已經完全渲染
-        setTimeout(() => {
-          this.triggerWidth = this.buttonRef.nativeElement.offsetWidth;
-          this.cd.markForCheck();
-        });
+        const width = this.buttonRef.nativeElement.offsetWidth || 300;
+        this.triggerWidth = width;
+        return width;
       } catch (error) {
         console.error('Error updating trigger width:', error);
+        return 300;
       }
     }
+    return this.triggerWidth || 300;
   }
 
   toggle() {
     if (this.disabled) {
       return;
     }
-    this.isOpen = !this.isOpen;
 
-    // 每次打開下拉選單時更新寬度
-    if (this.isOpen && this.isBrowser) {
-      setTimeout(() => {
-        this.updateTriggerWidth();
-      });
+    if (!this.isOpen && this.isBrowser && this.buttonRef?.nativeElement) {
+      this.triggerWidth = this.buttonRef.nativeElement.offsetWidth || 300;
+      this.cd.detectChanges();
+
+      this.isOpen = true;
+    } else {
+      this.isOpen = !this.isOpen;
     }
 
     this.cd.markForCheck();
@@ -151,13 +148,5 @@ export class DropdownComponent implements OnInit, AfterViewInit {
     this.selectedOption = option;
     this.selectionChange.emit(option);
     this.close();
-  }
-
-  // 當有 errorTooltipOptions.text 時才使用工具提示，否則使用簡單的錯誤指示器
-  showError() {
-    if (this.error && this.errorTooltipOptions?.text && this.buttonRef?.nativeElement) {
-      // 這裡可以添加顯示工具提示的邏輯，或者讓外部處理
-      console.log('顯示錯誤:', this.errorTooltipOptions.text);
-    }
   }
 }

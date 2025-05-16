@@ -9,3 +9,19 @@
   border: 1px solid #ff4d4f !important;
   box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
 }
+
+/* 確保錯誤樣式持續顯示 */
+:host {
+  ::ng-deep {
+    .error-input {
+      border: 1px solid #ff4d4f !important;
+      box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+
+      &:focus {
+        // 保持錯誤樣式即使在獲取焦點時
+        border-color: #ff4d4f !important;
+        box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+      }
+    }
+  }
+}

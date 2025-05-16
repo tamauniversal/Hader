@@ -1,10 +1,10 @@
-import { Component, ElementRef, ViewChildren, QueryList, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, ElementRef, ViewChildren, ViewChild, QueryList, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DropdownComponent, DropdownOption } from '../../shared/components/dropdown/dropdown.component';
-import { TooltipService, ErrorTooltipOptions } from '../../shared/components/tooltip/tooltip.service';
+import { TooltipService, TooltipOptions } from '../../shared/components/tooltip/tooltip.service';
 
 interface OptionItem {
   value: string;
@@ -25,6 +25,10 @@ export class RegistrationInquiryComponent {
   // 控制掛號完成狀態
   registrationComplete: boolean = false;
 
+  // 表單提交標記
+  registrationSubmitted: boolean = false;
+  inquirySubmitted: boolean = false;
+
   // 確定是否在瀏覽器端執行
   isBrowser: boolean;
 
@@ -32,7 +36,7 @@ export class RegistrationInquiryComponent {
   @ViewChildren('formInput') formInputs!: QueryList<ElementRef>;
 
   // 錯誤提示設置
-  errorTooltipOptions: ErrorTooltipOptions = {
+  TooltipOptions: TooltipOptions = {
     position: 'top',
     duration: 5000,
     showArrow: true,
@@ -88,6 +92,10 @@ export class RegistrationInquiryComponent {
   selectedDoctor: DropdownOption | null = null;
   selectedTime: DropdownOption | null = null;
 
+  // 添加對dropdown組件的引用
+  @ViewChild('doctorRef') doctorDropdown!: DropdownComponent;
+  @ViewChild('timeRef') timeDropdown!: DropdownComponent;
+
   constructor(
     private router: Router,
     private tooltipService: TooltipService,
@@ -99,6 +107,9 @@ export class RegistrationInquiryComponent {
   setActiveTab(tab: 'registration' | 'inquiry') {
     this.activeTab = tab;
     this.registrationComplete = false;
+    // 切換標籤時重置表單提交標記
+    this.registrationSubmitted = false;
+    this.inquirySubmitted = false;
   }
 
   // 處理下拉選單選擇變更
@@ -115,6 +126,9 @@ export class RegistrationInquiryComponent {
   // 表單提交處理
   onRegistrationSubmit() {
     if (!this.isBrowser) return; // SSR環境不執行
+
+    // 設置提交標記
+    this.registrationSubmitted = true;
 
     if (this.registrationForm.valid) {
       // 模擬提交註冊
@@ -133,17 +147,41 @@ export class RegistrationInquiryComponent {
 
         // 如果字段無效，顯示tooltip錯誤提示
         if (control && control.invalid && control.touched) {
-          const inputElement = document.getElementById(key) as HTMLElement;
-          if (inputElement) {
-            // 生成錯誤信息
-            let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
+          // 生成錯誤信息
+          let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
 
-            // 顯示錯誤tooltip（在元素下方顯示）
-            this.tooltipService.showError(errorMessage, inputElement, {
+          // 針對下拉選單控件特殊處理
+          if (key === 'doctor' && this.doctorDropdown?.buttonRef?.nativeElement) {
+            // 使用父組件直接獲取下拉框DOM元素並顯示錯誤
+            const dropdownElement = this.doctorDropdown.buttonRef.nativeElement;
+
+            // 顯示錯誤tooltip
+            this.tooltipService.show(errorMessage, dropdownElement, {
               position: 'bottom',
               duration: 5000,
-              showArrow: true
+              showArrow: true,
             });
+          } else if (key === 'appointmentTime' && this.timeDropdown?.buttonRef?.nativeElement) {
+            // 使用父組件直接獲取下拉框DOM元素並顯示錯誤
+            const dropdownElement = this.timeDropdown.buttonRef.nativeElement;
+
+            // 顯示錯誤tooltip
+            this.tooltipService.show(errorMessage, dropdownElement, {
+              position: 'bottom',
+              duration: 5000,
+              showArrow: true,
+            });
+          } else {
+            // 其他普通輸入框處理
+            const inputElement = document.getElementById(key) as HTMLElement;
+            if (inputElement) {
+              // 顯示錯誤tooltip
+              this.tooltipService.show(errorMessage, inputElement, {
+                position: 'bottom',
+                duration: 5000,
+                showArrow: true,
+              });
+            }
           }
         }
       });
@@ -152,6 +190,9 @@ export class RegistrationInquiryComponent {
 
   onInquirySubmit() {
     if (!this.isBrowser) return; // SSR環境不執行
+
+    // 設置提交標記
+    this.inquirySubmitted = true;
 
     if (this.inquiryForm.valid) {
       // 模擬提交查詢
@@ -176,10 +217,10 @@ export class RegistrationInquiryComponent {
             let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
 
             // 顯示錯誤tooltip（在元素下方顯示）
-            this.tooltipService.showError(errorMessage, inputElement, {
+            this.tooltipService.show(errorMessage, inputElement, {
               position: 'bottom',
               duration: 5000,
-              showArrow: true
+              showArrow: true,
             });
           }
         }

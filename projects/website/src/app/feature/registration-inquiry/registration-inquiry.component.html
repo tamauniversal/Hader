@@ -111,8 +111,8 @@
                         id="idNumber"
                         formControlName="idNumber"
                         type="text"
-                        [ngClass]="{'error-input': registrationForm.controls.idNumber.invalid && registrationForm.controls.idNumber.touched}"
-                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        [ngClass]="{'error-input': registrationSubmitted && registrationForm.controls.idNumber.invalid}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                         placeholder="請輸入身分證/居留證號"
                       />
                     </div>
@@ -126,8 +126,8 @@
                         id="name"
                         formControlName="name"
                         type="text"
-                        [ngClass]="{'error-input': registrationForm.controls.name.invalid && registrationForm.controls.name.touched}"
-                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        [ngClass]="{'error-input': registrationSubmitted && registrationForm.controls.name.invalid}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                         placeholder="請輸入姓名"
                       />
                     </div>
@@ -141,8 +141,8 @@
                         id="birthday"
                         formControlName="birthday"
                         type="date"
-                        [ngClass]="{'error-input': registrationForm.controls.birthday.invalid && registrationForm.controls.birthday.touched}"
-                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        [ngClass]="{'error-input': registrationSubmitted && registrationForm.controls.birthday.invalid}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                       />
                     </div>
                   </div>
@@ -155,8 +155,8 @@
                         id="phone"
                         formControlName="phone"
                         type="tel"
-                        [ngClass]="{'error-input': registrationForm.controls.phone.invalid && registrationForm.controls.phone.touched}"
-                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                        [ngClass]="{'error-input': registrationSubmitted && registrationForm.controls.phone.invalid}"
+                        class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                         placeholder="請輸入聯絡電話"
                       />
                     </div>
@@ -170,7 +170,7 @@
                           #formInput
                           [options]="doctorOptions"
                           [defaultText]="'請選擇科別/醫師'"
-                          [error]="registrationForm.controls.doctor.invalid && registrationForm.controls.doctor.touched"
+                          [error]="registrationSubmitted && registrationForm.controls.doctor.invalid"
                           (selectionChange)="onDoctorSelected($event)"
                           #doctorRef
                         ></app-dropdown>
@@ -186,7 +186,7 @@
                           #formInput
                           [options]="appointmentTimeOptions"
                           [defaultText]="'請選擇預約時間'"
-                          [error]="registrationForm.controls.appointmentTime.invalid && registrationForm.controls.appointmentTime.touched"
+                          [error]="registrationSubmitted && registrationForm.controls.appointmentTime.invalid"
                           (selectionChange)="onTimeSelected($event)"
                           #timeRef
                         ></app-dropdown>
@@ -339,11 +339,11 @@
                   <div class="w-full">
                     <input
                       #formInput
-                      id="inquiryIdNumber"
+                      id="inquiry_idNumber"
                       formControlName="idNumber"
                       type="text"
-                      [ngClass]="{'error-input': inquiryForm.controls.idNumber.invalid && inquiryForm.controls.idNumber.touched}"
-                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      [ngClass]="{'error-input': inquirySubmitted && inquiryForm.controls.idNumber.invalid}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                       placeholder="請輸入身分證/居留證號"
                     />
                   </div>
@@ -354,11 +354,11 @@
                   <div class="w-full">
                     <input
                       #formInput
-                      id="inquiryName"
+                      id="inquiry_name"
                       formControlName="name"
                       type="text"
-                      [ngClass]="{'error-input': inquiryForm.controls.name.invalid && inquiryForm.controls.name.touched}"
-                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      [ngClass]="{'error-input': inquirySubmitted && inquiryForm.controls.name.invalid}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                       placeholder="請輸入姓名"
                     />
                   </div>
@@ -369,11 +369,11 @@
                   <div class="w-full">
                     <input
                       #formInput
-                      id="inquiryBirthday"
+                      id="inquiry_birthday"
                       formControlName="birthday"
                       type="date"
-                      [ngClass]="{'error-input': inquiryForm.controls.birthday.invalid && inquiryForm.controls.birthday.touched}"
-                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      [ngClass]="{'error-input': inquirySubmitted && inquiryForm.controls.birthday.invalid}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                     />
                   </div>
                 </div>
@@ -383,11 +383,11 @@
                   <div class="w-full">
                     <input
                       #formInput
-                      id="inquiryPhone"
+                      id="inquiry_phone"
                       formControlName="phone"
                       type="tel"
-                      [ngClass]="{'error-input': inquiryForm.controls.phone.invalid && inquiryForm.controls.phone.touched}"
-                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-primary placeholder:text-gray-400"
+                      [ngClass]="{'error-input': inquirySubmitted && inquiryForm.controls.phone.invalid}"
+                      class="w-full h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-[#40a9ff] placeholder:text-gray-400"
                       placeholder="請輸入聯絡電話"
                     />
                   </div>
