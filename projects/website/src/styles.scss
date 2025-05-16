@@ -169,3 +169,132 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* CDK Overlay全局樣式 */
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cdk-overlay-backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0;
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cdk-overlay-connected-position-bounding-box {
+  position: absolute;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+/* Tooltip全局樣式 */
+.tooltip-overlay {
+  z-index: 1001;
+  pointer-events: none;
+}
+
+.tooltip-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tooltip-content {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  max-width: 250px;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  white-space: normal;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px;
+}
+
+.tooltip-arrow.top {
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+  margin: 0;
+}
+
+.tooltip-arrow.right {
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+  margin: 0;
+}
+
+.tooltip-arrow.bottom {
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+  margin: 0;
+}
+
+.tooltip-arrow.left {
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+.tooltip-top {
+  margin-bottom: 6px;
+}
+.tooltip-right {
+  margin-left: 6px;
+}
+.tooltip-bottom {
+  margin-top: 6px;
+}
+.tooltip-left {
+  margin-right: 6px;
+}
+
+/* 錯誤樣式表單元素 */
+.error-input {
+  border: 1px solid #ff4d4f !important;
+  box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2) !important;
+}

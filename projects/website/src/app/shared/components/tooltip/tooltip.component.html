@@ -1,6 +1,9 @@
-<div *ngIf="visible" class="tooltip-container" [ngClass]="'tooltip-' + position">
+<!-- Tooltip內容組件模板 -->
+<div class="tooltip-container tooltip-{{position}}">
   <div class="tooltip-content">
-    {{ message }}
+    {{message}}
   </div>
-  <div *ngIf="showArrow" class="tooltip-arrow" [ngClass]="'arrow-' + position"></div>
+  @if (showArrow) {
+    <div class="tooltip-arrow {{position}}"></div>
+  }
 </div>

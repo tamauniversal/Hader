@@ -1,73 +1,93 @@
-:host {
-  display: contents;
+app-tooltip-content {
+  @apply contents pointer-events-none z-[1001] block;
 }
 
 .tooltip-container {
-  position: relative;
+  @apply relative flex flex-col items-center;
+}
 
-  .tooltip-content {
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 14px;
-    max-width: 250px;
-    word-wrap: break-word;
+.tooltip-content {
+  @apply bg-black/80 text-white p-3 rounded text-sm max-w-[250px] break-words shadow-md text-center whitespace-normal;
+  line-height: 1.4;
+}
+
+.tooltip-arrow {
+  @apply absolute w-0 h-0 border-solid border-[6px];
+
+  &.top {
+    @apply top-full left-1/2 -translate-x-1/2;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    margin: 0;
   }
 
-  .tooltip-arrow {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
+  &.right {
+    @apply right-full top-1/2 -translate-y-1/2;
+    border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+    margin: 0;
+  }
 
-    &.arrow-top {
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-bottom-color: rgba(0, 0, 0, 0.8);
-      border-top: 0;
-    }
+  &.bottom {
+    @apply bottom-full left-1/2 -translate-x-1/2;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    margin: 0;
+  }
 
-    &.arrow-right {
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-left-color: rgba(0, 0, 0, 0.8);
-      border-right: 0;
-    }
-
-    &.arrow-bottom {
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-top-color: rgba(0, 0, 0, 0.8);
-      border-bottom: 0;
-    }
-
-    &.arrow-left {
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-right-color: rgba(0, 0, 0, 0.8);
-      border-left: 0;
-    }
+  &.left {
+    @apply left-full top-1/2 -translate-y-1/2;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+    margin: 0;
   }
 }
 
-// 根據位置調整margin
 .tooltip-top {
-  margin-bottom: 10px;
+  @apply mb-[6px];
 }
 
 .tooltip-right {
-  margin-left: 10px;
+  @apply ml-[6px];
 }
 
 .tooltip-bottom {
-  margin-top: 10px;
+  @apply mt-[6px];
 }
 
 .tooltip-left {
-  margin-right: 10px;
+  @apply mr-[6px];
+}
+
+.tooltip-error {
+  .tooltip-content {
+    @apply bg-red-600/90 text-white;
+  }
+
+  .tooltip-arrow {
+    &.top {
+      border-color: rgba(220, 38, 38, 0.9) transparent transparent transparent;
+    }
+
+    &.right {
+      border-color: transparent rgba(220, 38, 38, 0.9) transparent transparent;
+    }
+
+    &.bottom {
+      border-color: transparent transparent rgba(220, 38, 38, 0.9) transparent;
+    }
+
+    &.left {
+      border-color: transparent transparent transparent rgba(220, 38, 38, 0.9);
+    }
+  }
+}
+
+.cdk-overlay-container {
+  z-index: 1000;
+}
+
+.tooltip-overlay {
+  z-index: 1001;
+  pointer-events: none;
+}
+
+:host ::ng-deep .tooltip-container {
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.3));
 }

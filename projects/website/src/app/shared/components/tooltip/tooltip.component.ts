@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, ElementRef, TemplateRef, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, ElementRef, ViewChild, ApplicationRef, HostBinding, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   Overlay,
@@ -16,70 +16,19 @@ export type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
   selector: 'app-tooltip-content',
   standalone: true,
   imports: [CommonModule],
-  template: `
-    <div class="tooltip-container">
-      <div class="tooltip-content">
-        {{ message }}
-      </div>
-      <div *ngIf="showArrow" class="tooltip-arrow" [ngClass]="'arrow-' + position"></div>
-    </div>
-  `,
-  styles: [`
-    :host {
-      display: block;
-    }
-    .tooltip-container {
-      position: relative;
-    }
-    .tooltip-content {
-      background-color: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 8px 12px;
-      border-radius: 4px;
-      font-size: 14px;
-      max-width: 250px;
-      word-wrap: break-word;
-    }
-    .tooltip-arrow {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border: 6px solid transparent;
-    }
-    .tooltip-arrow.arrow-top {
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-bottom-color: rgba(0, 0, 0, 0.8);
-      border-top: 0;
-    }
-    .tooltip-arrow.arrow-right {
-      left: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-left-color: rgba(0, 0, 0, 0.8);
-      border-right: 0;
-    }
-    .tooltip-arrow.arrow-bottom {
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-top-color: rgba(0, 0, 0, 0.8);
-      border-bottom: 0;
-    }
-    .tooltip-arrow.arrow-left {
-      right: 100%;
-      top: 50%;
-      transform: translateY(-50%);
-      border-right-color: rgba(0, 0, 0, 0.8);
-      border-left: 0;
-    }
-  `]
+  templateUrl: './tooltip.component.html',
+  styleUrls: ['./tooltip.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class TooltipContentComponent {
   message: string = '';
   position: TooltipPosition = 'top';
   showArrow: boolean = true;
+  isError: boolean = false;
+
+  @HostBinding('class') get hostClass() {
+    return this.isError ? 'tooltip-error' : '';
+  }
 }
 
 @Component({
@@ -87,13 +36,15 @@ export class TooltipContentComponent {
   standalone: true,
   imports: [CommonModule, OverlayModule],
   template: '<ng-content></ng-content>',
-  styleUrl: './tooltip.component.scss'
+  styleUrl: './tooltip.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class TooltipComponent implements OnDestroy {
   @Input() message: string = '';
   @Input() position: TooltipPosition = 'top';
   @Input() autoHideTime: number = 0; // 0表示不自動隱藏
   @Input() showArrow: boolean = true;
+  @Input() isError: boolean = false;
 
   private overlayRef: OverlayRef | null = null;
   private hideTimeout: any = null;
@@ -101,7 +52,8 @@ export class TooltipComponent implements OnDestroy {
   constructor(
     private overlay: Overlay,
     private overlayPositionBuilder: OverlayPositionBuilder,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private appRef: ApplicationRef
   ) {}
 
   ngOnDestroy(): void {
@@ -119,7 +71,8 @@ export class TooltipComponent implements OnDestroy {
     this.overlayRef = this.overlay.create({
       positionStrategy,
       scrollStrategy: this.overlay.scrollStrategies.reposition(),
-      hasBackdrop: false
+      hasBackdrop: false,
+      panelClass: ['tooltip-overlay', this.isError ? 'tooltip-error-overlay' : '']
     });
 
     // 創建內容
@@ -130,6 +83,17 @@ export class TooltipComponent implements OnDestroy {
     tooltipRef.instance.message = this.message;
     tooltipRef.instance.position = this.position;
     tooltipRef.instance.showArrow = this.showArrow;
+    tooltipRef.instance.isError = this.isError;
+
+    // 強制觸發變更檢測
+    this.appRef.tick();
+
+    // 確保tooltip位置正確
+    setTimeout(() => {
+      if (this.overlayRef) {
+        this.overlayRef.updatePosition();
+      }
+    }, 0);
 
     // 設置自動隱藏
     if (this.autoHideTime > 0) {
@@ -171,7 +135,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'top',
           overlayX: 'center',
           overlayY: 'bottom',
-          offsetY: -8
+          offsetY: 0
         });
         // 備用位置 - 底部
         positions.push({
@@ -179,7 +143,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'bottom',
           overlayX: 'center',
           overlayY: 'top',
-          offsetY: 8
+          offsetY: 0
         });
         break;
       case 'right':
@@ -188,7 +152,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'center',
           overlayX: 'start',
           overlayY: 'center',
-          offsetX: 8
+          offsetX: 0
         });
         // 備用位置 - 左側
         positions.push({
@@ -196,7 +160,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'center',
           overlayX: 'end',
           overlayY: 'center',
-          offsetX: -8
+          offsetX: 0
         });
         break;
       case 'bottom':
@@ -205,7 +169,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'bottom',
           overlayX: 'center',
           overlayY: 'top',
-          offsetY: 8
+          offsetY: 0
         });
         // 備用位置 - 頂部
         positions.push({
@@ -213,7 +177,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'top',
           overlayX: 'center',
           overlayY: 'bottom',
-          offsetY: -8
+          offsetY: 0
         });
         break;
       case 'left':
@@ -222,7 +186,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'center',
           overlayX: 'end',
           overlayY: 'center',
-          offsetX: -8
+          offsetX: 0
         });
         // 備用位置 - 右側
         positions.push({
@@ -230,7 +194,7 @@ export class TooltipComponent implements OnDestroy {
           originY: 'center',
           overlayX: 'start',
           overlayY: 'center',
-          offsetX: 8
+          offsetX: 0
         });
         break;
     }
@@ -243,7 +207,7 @@ export class TooltipComponent implements OnDestroy {
         originY: 'top',
         overlayX: 'center',
         overlayY: 'bottom',
-        offsetY: -8
+        offsetY: 0
       },
       // 右側
       {
@@ -251,7 +215,7 @@ export class TooltipComponent implements OnDestroy {
         originY: 'center',
         overlayX: 'start',
         overlayY: 'center',
-        offsetX: 8
+        offsetX: 0
       },
       // 下方
       {
@@ -259,7 +223,7 @@ export class TooltipComponent implements OnDestroy {
         originY: 'bottom',
         overlayX: 'center',
         overlayY: 'top',
-        offsetY: 8
+        offsetY: 0
       },
       // 左側
       {
@@ -267,7 +231,7 @@ export class TooltipComponent implements OnDestroy {
         originY: 'center',
         overlayX: 'end',
         overlayY: 'center',
-        offsetX: -8
+        offsetX: 0
       }
     );
 

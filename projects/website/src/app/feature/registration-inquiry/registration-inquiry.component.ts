@@ -123,12 +123,30 @@ export class RegistrationInquiryComponent {
       // 顯示註冊資訊
       this.registrationComplete = true;
     } else {
+      // 先隱藏所有可能存在的錯誤提示
+      this.tooltipService.hide();
+
       // 標記所有欄位為已觸摸，顯示紅框錯誤
       Object.keys(this.registrationForm.controls).forEach(key => {
         const control = this.registrationForm.get(key);
         control?.markAsTouched();
+
+        // 如果字段無效，顯示tooltip錯誤提示
+        if (control && control.invalid && control.touched) {
+          const inputElement = document.getElementById(key) as HTMLElement;
+          if (inputElement) {
+            // 生成錯誤信息
+            let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
+
+            // 顯示錯誤tooltip（在元素下方顯示）
+            this.tooltipService.showError(errorMessage, inputElement, {
+              position: 'bottom',
+              duration: 5000,
+              showArrow: true
+            });
+          }
+        }
       });
-      // 不顯示錯誤工具提示，只顯示紅框
     }
   }
 
@@ -142,12 +160,30 @@ export class RegistrationInquiryComponent {
         this.registrationComplete = true;
       }, 1000);
     } else {
+      // 先隱藏所有可能存在的錯誤提示
+      this.tooltipService.hide();
+
       // 標記所有欄位為已觸摸，顯示紅框錯誤
       Object.keys(this.inquiryForm.controls).forEach(key => {
         const control = this.inquiryForm.get(key);
         control?.markAsTouched();
+
+        // 如果字段無效，顯示tooltip錯誤提示
+        if (control && control.invalid && control.touched) {
+          const inputElement = document.getElementById(`inquiry_${key}`) as HTMLElement;
+          if (inputElement) {
+            // 生成錯誤信息
+            let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
+
+            // 顯示錯誤tooltip（在元素下方顯示）
+            this.tooltipService.showError(errorMessage, inputElement, {
+              position: 'bottom',
+              duration: 5000,
+              showArrow: true
+            });
+          }
+        }
       });
-      // 不顯示錯誤工具提示，只顯示紅框
     }
   }
 
