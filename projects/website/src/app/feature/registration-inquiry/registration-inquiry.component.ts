@@ -1,15 +1,9 @@
-import { Component, ElementRef, ViewChildren, ViewChild, QueryList, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, ElementRef, ViewChildren, ViewChild, QueryList, PLATFORM_ID, Inject, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { DropdownComponent, DropdownOption } from '../../shared/components/dropdown/dropdown.component';
 import { TooltipService, TooltipOptions } from '../../shared/components/tooltip/tooltip.service';
-
-interface OptionItem {
-  value: string;
-  label: string;
-}
 
 @Component({
   selector: 'app-registration-inquiry',
@@ -18,7 +12,7 @@ interface OptionItem {
   templateUrl: './registration-inquiry.component.html',
   styleUrl: './registration-inquiry.component.scss'
 })
-export class RegistrationInquiryComponent {
+export class RegistrationInquiryComponent implements OnInit, OnDestroy {
   // 控制當前激活的標籤
   activeTab: 'registration' | 'inquiry' = 'registration';
 
@@ -39,8 +33,7 @@ export class RegistrationInquiryComponent {
   TooltipOptions: TooltipOptions = {
     position: 'top',
     duration: 5000,
-    showArrow: true,
-    showBorder: true
+    showArrow: true
   };
 
   // 科別/醫師下拉選單選項
@@ -97,11 +90,62 @@ export class RegistrationInquiryComponent {
   @ViewChild('timeRef') timeDropdown!: DropdownComponent;
 
   constructor(
-    private router: Router,
     private tooltipService: TooltipService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+
+  ngOnInit(): void {
+    if (!this.isBrowser) return;
+
+    // 監聽註冊表單字段變化
+    this.setupFormControlListeners(this.registrationForm.controls, false);
+
+    // 監聽查詢表單字段變化
+    this.setupFormControlListeners(this.inquiryForm.controls, true);
+  }
+
+  ngOnDestroy(): void {
+    // 組件銷毀時確保隱藏所有tooltip
+    if (this.isBrowser) {
+      this.tooltipService.hideAll();
+    }
+  }
+
+  // 設置表單控制項的監聽器
+  private setupFormControlListeners(controls: any, isInquiry: boolean): void {
+    Object.keys(controls).forEach(key => {
+      const control = controls[key];
+
+      // 監聽控制項狀態變化
+      control.statusChanges.subscribe((status: string) => {
+        // 如果控制項從無效變為有效且已被觸碰過
+        if (status === 'VALID' && control.touched) {
+          // 獲取對應的DOM元素
+          let element: HTMLElement | null = null;
+
+          if (isInquiry) {
+            // 查詢表單元素ID格式
+            element = document.getElementById(`inquiry_${key}`);
+          } else {
+            // 註冊表單的特殊處理
+            if (key === 'doctor' && this.doctorDropdown?.buttonRef?.nativeElement) {
+              element = this.doctorDropdown.buttonRef.nativeElement;
+            } else if (key === 'appointmentTime' && this.timeDropdown?.buttonRef?.nativeElement) {
+              element = this.timeDropdown.buttonRef.nativeElement;
+            } else {
+              element = document.getElementById(key);
+            }
+          }
+
+          // 如果找到元素，隱藏對應的tooltip
+          if (element) {
+            this.tooltipService.hide(element);
+          }
+        }
+      });
+    });
   }
 
   setActiveTab(tab: 'registration' | 'inquiry') {
@@ -110,6 +154,8 @@ export class RegistrationInquiryComponent {
     // 切換標籤時重置表單提交標記
     this.registrationSubmitted = false;
     this.inquirySubmitted = false;
+    // 隱藏所有tooltip
+    this.tooltipService.hideAll();
   }
 
   // 處理下拉選單選擇變更
@@ -138,7 +184,7 @@ export class RegistrationInquiryComponent {
       this.registrationComplete = true;
     } else {
       // 先隱藏所有可能存在的錯誤提示
-      this.tooltipService.hide();
+      this.tooltipService.hideAll();
 
       // 標記所有欄位為已觸摸，顯示紅框錯誤
       Object.keys(this.registrationForm.controls).forEach(key => {
@@ -202,7 +248,7 @@ export class RegistrationInquiryComponent {
       }, 1000);
     } else {
       // 先隱藏所有可能存在的錯誤提示
-      this.tooltipService.hide();
+      this.tooltipService.hideAll();
 
       // 標記所有欄位為已觸摸，顯示紅框錯誤
       Object.keys(this.inquiryForm.controls).forEach(key => {
@@ -225,12 +271,6 @@ export class RegistrationInquiryComponent {
           }
         }
       });
-    }
-  }
-
-  goToStandards() {
-    if (this.isBrowser) {
-      this.router.navigate(['/fees']);
     }
   }
 }

@@ -30,6 +30,7 @@ export interface DropdownOption {
   imports: [OverlayModule, CommonModule]
 })
 export class DropdownComponent implements OnInit, AfterViewInit {
+  @Input() triggerClass: string = '';
   @Input() options: DropdownOption[] = [];
   @Input() defaultText = '請選擇';
   @Input() disabled = false;
@@ -51,14 +52,14 @@ export class DropdownComponent implements OnInit, AfterViewInit {
       originY: 'bottom',
       overlayX: 'start',
       overlayY: 'top',
-      offsetY: 0,
+      offsetY: 4,
     },
     {
       originX: 'start',
       originY: 'top',
       overlayX: 'start',
       overlayY: 'bottom',
-      offsetY: 0,
+      offsetY: -4,
     },
   ];
 

@@ -97,6 +97,12 @@ export class TooltipComponent implements OnDestroy {
 
     // 設置自動隱藏
     if (this.autoHideTime > 0) {
+      // 清除之前的計時器
+      if (this.hideTimeout) {
+        clearTimeout(this.hideTimeout);
+      }
+
+      // 設置新的計時器
       this.hideTimeout = setTimeout(() => {
         this.hide();
       }, this.autoHideTime);

@@ -1,21 +1,19 @@
 <div class="dropdown-container" [class.has-error]="error">
   <!-- 使用新的overlay-origin元素作為 Overlay 的原點 -->
-  <div class="overlay-origin" cdkOverlayOrigin #origin="cdkOverlayOrigin">
+  <div class="flex" cdkOverlayOrigin #origin="cdkOverlayOrigin">
     <button
       #dropdownButton
       type="button"
-      class="dropdown-button"
+      class="w-full h-10 lg:h-12 px-4 font-roboto text-[16px] lg:text-[32px] text-left border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-secondary"
       [class.disabled]="disabled"
       (click)="toggle()"
       aria-haspopup="true"
       [attr.aria-expanded]="isOpen"
       [disabled]="disabled">
-      <span class="selected-text">
+      <span>
         {{ selectedOption ? selectedOption.label : defaultText }}
       </span>
-      <span class="arrow-icon">
-        <i [class]="isOpen ? 'arrow up' : 'arrow down'"></i>
-      </span>
+      <span class="absolute top-1/2 right-4 -translate-y-1/2 text-[16px] lg:text-[20px] leading-none">▼</span>
     </button>
   </div>
 
@@ -35,7 +33,7 @@
       @if (options && options.length > 0) {
         @for (option of options; track option.value) {
           <div
-            class="dropdown-item"
+            class="dropdown-item text-[px] text-[16px] lg:text-[32px]"
             [class.selected]="selectedOption?.value === option.value"
             (click)="selectOption(option)">
             {{ option.label }}

@@ -23,12 +23,17 @@ export interface TooltipOptions {
   showArrow?: boolean;  // 是否顯示箭頭
 }
 
+interface TooltipData {
+  overlayRef: OverlayRef;
+  timeout?: any;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class TooltipService {
-  private timeouts = new Map<HTMLElement, any>();
-  private overlayRef: OverlayRef | null = null;
+  // 存儲每個元素對應的tooltip數據
+  private tooltips = new Map<HTMLElement, TooltipData>();
   private hideTimeout: any = null;
 
   constructor(
@@ -38,14 +43,55 @@ export class TooltipService {
   ) {}
 
   /**
-   * 隱藏當前顯示的Tooltip
+   * 隱藏指定元素的Tooltip
+   * @param element 目標元素，如果不提供則隱藏當前最後一個Tooltip
    */
-  hide(): void {
-    if (this.overlayRef) {
-      this.overlayRef.dispose();
-      this.overlayRef = null;
+  hide(element?: HTMLElement): void {
+    if (element && this.tooltips.has(element)) {
+      // 隱藏指定元素的tooltip
+      const tooltipData = this.tooltips.get(element)!;
+
+      // 清除計時器
+      if (tooltipData.timeout) {
+        clearTimeout(tooltipData.timeout);
+      }
+
+      // 銷毀overlay
+      tooltipData.overlayRef.dispose();
+
+      // 從映射中移除
+      this.tooltips.delete(element);
+    } else if (!element && this.tooltips.size > 0) {
+      // 如果未指定元素且有活動的tooltip，隱藏最後一個
+      const lastElement = Array.from(this.tooltips.keys()).pop();
+      if (lastElement) {
+        this.hide(lastElement);
+      }
     }
 
+    // 清除全局hideTimeout（如果有）
+    if (this.hideTimeout) {
+      clearTimeout(this.hideTimeout);
+      this.hideTimeout = null;
+    }
+  }
+
+  /**
+   * 隱藏所有Tooltip
+   */
+  hideAll(): void {
+    // 遍歷所有tooltip並隱藏
+    this.tooltips.forEach((tooltipData, element) => {
+      if (tooltipData.timeout) {
+        clearTimeout(tooltipData.timeout);
+      }
+      tooltipData.overlayRef.dispose();
+    });
+
+    // 清空映射
+    this.tooltips.clear();
+
+    // 清除全局hideTimeout（如果有）
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout);
       this.hideTimeout = null;
@@ -80,7 +126,7 @@ export class TooltipService {
     const finalOptions = { ...defaultOptions, ...options };
 
     // 先清除此元素之前的提示（如果有）
-    this.hide();
+    this.hide(element);
 
     // 設置位置策略
     const positionStrategy = this.getPositionStrategy(element, finalOptions.position!);
@@ -108,22 +154,34 @@ export class TooltipService {
     tooltipRef.instance.showArrow = finalOptions.showArrow!;
     tooltipRef.instance.isError = true;
 
+    // 創建TooltipData對象
+    const tooltipData: TooltipData = {
+      overlayRef: overlayRef
+    };
+
+    // 將tooltip數據存儲到映射中
+    this.tooltips.set(element, tooltipData);
+
     // 強制觸發變更檢測
     this.appRef.tick();
 
     // 確保tooltip位置正確
     setTimeout(() => {
-      overlayRef.updatePosition();
+      if (this.tooltips.has(element)) {
+        this.tooltips.get(element)!.overlayRef.updatePosition();
+      }
     }, 10); // 增加延遲確保DOM已更新
 
     // 設置自動隱藏
     if (finalOptions.duration && finalOptions.duration > 0) {
       const timeout = setTimeout(() => {
-        this.hide();
+        this.hide(element);
       }, finalOptions.duration);
 
-      // 儲存此元素的timeout，以便稍後可以清除
-      this.timeouts.set(element, timeout);
+      // 將timeout存儲到tooltipData中
+      if (this.tooltips.has(element)) {
+        this.tooltips.get(element)!.timeout = timeout;
+      }
     }
   }
 
