@@ -1,21 +1,58 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './feature/home/home.component';
-import { AboutComponent } from './feature/about/about.component';
-import { RegistrationInquiryComponent } from './feature/registration-inquiry/registration-inquiry.component';
-import { FeesComponent } from './feature/fees/fees.component';
-import { ProgressComponent } from './feature/progress/progress.component';
-import { EducationComponent } from './feature/education/education.component';
-import { NewsComponent } from './feature/news/news.component';
-import { ContactComponent } from './feature/contact/contact.component';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'registration-inquiry', component: RegistrationInquiryComponent },
-  { path: 'fees', component: FeesComponent },
-  { path: 'progress', component: ProgressComponent },
-  { path: 'education', component: EducationComponent },
-  { path: 'news', component: NewsComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: '**', redirectTo: 'home' },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./feature/home/home.component').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./feature/about/about.component').then((m) => m.AboutComponent),
+  },
+  {
+    path: 'registration-inquiry',
+    loadComponent: () =>
+      import('./feature/registration-inquiry/registration-inquiry.component').then((m) => m.RegistrationInquiryComponent),
+  },
+  {
+    path: 'fees',
+    loadComponent: () =>
+      import('./feature/fees/fees.component').then((m) => m.FeesComponent),
+  },
+  {
+    path: 'progress',
+    loadComponent: () =>
+      import('./feature/progress/progress.component').then((m) => m.ProgressComponent),
+  },
+  {
+    path: 'education',
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import('./feature/education/education.component').then((m) => m.EducationComponent),
+      },
+      {
+        path: 'detail/:id',
+        loadComponent: () =>
+          import('./feature/education/education-detail/education-detail.component').then((m) => m.EducationDetailComponent),
+      }
+    ]
+  },
+  {
+    path: 'news',
+    loadComponent: () =>
+      import('./feature/news/news.component').then((m) => m.NewsComponent),
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./feature/contact/contact.component').then((m) => m.ContactComponent),
+  },
+  {
+    path: '**',
+    redirectTo: 'home',
+  },
 ];

@@ -48,7 +48,7 @@
   <!-- 區域 2 -->
   <div class="w-full border-b-2 border-black">
     <div class="flex flex-col min-[1440px]:flex-row gap-12 min-[1440px]:gap-8 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
-      <div class="flex flex-col flex-grow gap-10 lg:gap-20 overflow-x-auto -m-4 p-4">
+      <div class="flex flex-col flex-grow gap-10 lg:gap-20 overflow-hidden -m-4 p-4">
         <!-- 左半內容 -->
         <div class="flex flex-col w-full min-w-fit min-[1440px]:w-[937px]">
           @for  (item of newsList; track item; let i = $index) {
@@ -57,7 +57,7 @@
               <div class="pr-4 text-[20px] lg:pl-4 lg:text-[28px] font-roboto font-medium">
                 {{ item.date }}
               </div>
-              <div class="lg:pl-30 text-[20px] lg:text-[28px] font-roboto">
+              <div class="lg:pl-30 text-[20px] lg:text-[28px] font-roboto truncate">
                 {{ item.title }}
               </div>
             </a>
@@ -78,20 +78,11 @@
 
   <!-- 區域 3 -->
   <div class="w-full border-b-2 border-black">
-    <div class="flex flex-col min-[1440px]:flex-row gap-12 min-[1440px]:gap-0 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
-      <div class="flex flex-col flex-grow gap-10 lg:gap-20">
+    <div class="flex flex-col min-[1440px]:flex-row justify-between gap-12 min-[1440px]:gap-8 w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-10 lg:py-20 min-[1440px]:py-30">
+      <div class="flex flex-col flex-grow gap-10 lg:gap-20 max-w-[937px]">
         <!-- 左半內容 -->
-        <div class="flex flex-col md:flex-row gap-8 w-full min-w-fit min-[1440px]:w-[937px]">
+        <div class="flex flex-col md:flex-row gap-8 w-full min-w-fit min-[1440px]:w-full">
           @for (item of educationList; track item) {
-            <!-- <a [routerLink]="item.url" class="flex flex-1 md:w-0 p-8 border border-solid border-[#646464] rounded-[32px] cursor-pointer hover:border-primary hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] transition-all duration-300 ease-in-out">
-              <div class="flex flex-col flex-1 gap-4 justify-between">
-                <div class="w-fit p-2 text-[20px] text-white bg-black rounded-[12px] font-noto-sans-tc font-medium leading-none"
-                     [innerText]="item.tag"></div>
-                <div class="text-[30px] font-noto-sans-tc font-medium whitespace-pre-wrap break-all"
-                     [innerText]="item.title"></div>
-              </div>
-              <img [src]="item.imgUrl" alt="people-icon" class="flex-shrink-0 self-end h-[150px] lg:h-[200px] translate-y-8">
-            </a> -->
             <app-education-card [item]="item"></app-education-card>
           }
         </div>

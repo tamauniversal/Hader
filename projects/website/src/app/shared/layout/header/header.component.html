@@ -46,7 +46,7 @@
         <a [routerLink]="item.path"
            [fragment]="item.fragment"
            [routerLinkActive]="!item.fragment ? 'text-primary' : ''"
-           [routerLinkActiveOptions]="{exact: true}"
+           [routerLinkActiveOptions]="{exact: false}"
            class="relative cursor-pointer group max-2xl:hover:bg-gray-200 transition-all duration-300"
            (click)="closeMenu()">
           {{ item.label }}

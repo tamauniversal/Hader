@@ -20,7 +20,7 @@ export class InfoComponent {
   ];
 
   educationList = [
-    { tag: "日常\n保健", title: "飲食均衡\n教你怎麼吃", type: EducationCardType.TYPE_1, url: "/education" },
-    { tag: "醫療\n新知", title: "關於流感疫苗\n你知道多少?", type: EducationCardType.TYPE_2, url: "/education"}
+    { tag: "日常\n保健", title: "飲食均衡\n教你怎麼吃", type: EducationCardType.TYPE_1, url: "/education/detail/1" },
+    { tag: "醫療\n新知", title: "關於流感疫苗\n你知道多少?", type: EducationCardType.TYPE_2, url: "/education/detail/2"}
   ]
 }
