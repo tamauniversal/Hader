@@ -1,5 +1,5 @@
 <header class="max-w-[100vw] bg-white text-black border-b border-black border-solid relative z-50">
-  <div class="container mx-auto min-w-full min-[1540px]:min-w-fit flex items-center justify-between py-8 px-8 min-[1540px]:px-2">
+  <div class="container mx-auto min-w-full 2xl:min-w-fit flex items-center justify-between py-8 px-8 2xl:px-2">
     <!-- Logo -->
     <div class="text-2xl font-bold">
       <a routerLink="/" class="cursor-pointer">
@@ -8,7 +8,7 @@
     </div>
 
     <!-- 漢堡按鈕 -->
-    <button (click)="toggleMenu()" class="block min-[1540px]:hidden">
+    <button (click)="toggleMenu()" class="block 2xl:hidden">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
@@ -17,23 +17,23 @@
     <!-- 遮罩層 -->
     <div *ngIf="isMenuOpen"
          (click)="closeMenu()"
-         class="fixed top-[106px] left-0 right-0 bottom-0 max-w-[100vw] bg-black/50 min-[1540px]:hidden
+         class="fixed top-[106px] left-0 right-0 bottom-0 max-w-[100vw] bg-black/50 2xl:hidden
                 transition-opacity duration-300 ease-in-out
                 opacity-0 [&.active]:opacity-100"
          [class.active]="isMenuOpen">
     </div>
 
     <!-- Navigation -->
-    <nav class="flex min-[1540px]:space-x-12 text-[20px] font-noto-sans-tc
-                fixed min-[1540px]:static top-[96px] left-0 right-0
+    <nav class="flex 2xl:space-x-12 text-[20px] font-noto-sans-tc
+                fixed 2xl:static top-[96px] left-0 right-0
                 max-w-[100vw]
-                bg-white min-[1540px]:bg-transparent
-                *:p-4 *:min-[1540px]:p-0 space-y-0
-                shadow-lg min-[1540px]:shadow-none
-                flex-col min-[1540px]:flex-row
+                bg-white 2xl:bg-transparent
+                *:p-4 *:2xl:p-0 space-y-0
+                shadow-lg 2xl:shadow-none
+                flex-col 2xl:flex-row
                 transform transition-all duration-300 ease-in-out
-                min-[1540px]:opacity-100 min-[1540px]:translate-y-0
-                min-[1540px]:pointer-events-auto min-[1540px]:visible
+                2xl:opacity-100 2xl:translate-y-0
+                2xl:pointer-events-auto 2xl:visible
                 z-50"
          [ngClass]="{
            'active': isMenuOpen,
@@ -47,10 +47,10 @@
            [fragment]="item.fragment"
            [routerLinkActive]="!item.fragment ? 'text-primary' : ''"
            [routerLinkActiveOptions]="{exact: true}"
-           class="relative cursor-pointer group max-[1540px]:hover:bg-gray-200 transition-all duration-300"
+           class="relative cursor-pointer group max-2xl:hover:bg-gray-200 transition-all duration-300"
            (click)="closeMenu()">
           {{ item.label }}
-          <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 min-[1540px]:group-hover:w-full min-[1540px]:group-hover:left-0"></span>
+          <span class="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-primary transition-all duration-300 2xl:group-hover:w-full 2xl:group-hover:left-0"></span>
         </a>
       </ng-container>
 

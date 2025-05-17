@@ -1,1 +1,136 @@
-<p>fees works!</p>
+<div
+  class="flex flex-col items-center justify-center relative h-auto min-h-[calc(100vh-var(--header-height))] pb-10"
+>
+  <div class="w-full max-w-[1440px] mx-auto p-4 sm:p-8">
+    <!-- 電腦版-->
+    <div
+      class="hidden lg:grid grid-cols-[repeat(5,_auto)] gap-4 text-left font-noto-sans-tc"
+    >
+      <div class="text-[20px] 2xl:text-[26px] font-medium">就醫對象</div>
+      <div class="text-[20px] 2xl:text-[26px] font-medium">
+        部分負擔費用 / 次
+      </div>
+      <div class="text-[20px] 2xl:text-[26px] font-medium">掛號費 / 次</div>
+      <div class="text-[20px] 2xl:text-[26px] font-medium">總計 / 次</div>
+      <div class="text-[20px] 2xl:text-[26px] font-medium">備註</div>
+
+      <div class="col-span-5 border-t-2"></div>
+
+      <div class="text-[18px] 2xl:text-[24px]">一般民眾(持健保卡)</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">50 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">50 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">150 元</div>
+      <div class="text-[18px] 2xl:text-[24px]">
+        依據全民健康保險之門診部分負擔標準
+      </div>
+
+      <div class="col-span-5 border-t"></div>
+
+      <div class="text-[18px] 2xl:text-[24px]">65歲以上(含)民眾</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">0 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">100 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">100 元</div>
+      <div class="text-[18px] 2xl:text-[24px]">
+        需持健保卡就醫即享有掛號費優惠
+      </div>
+
+      <div class="col-span-5 border-t"></div>
+
+      <div class="text-[18px] 2xl:text-[24px]">特殊身份註記者*</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">50 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">100 元</div>
+      <div class="text-[18px] 2xl:text-[24px] text-primary">200元</div>
+      <div class="text-[18px] 2xl:text-[24px]">
+        <p>健保卡身份別及以下註記者:</p>
+        <ul class="list-disc list-inside">
+          <li>
+            健保卡註記有重大傷病
+            <span class="block pl-8">(心臟疾病、腎臟疾病、新陳代謝疾病等)</span>
+          </li>
+          <li>健保卡上註記「榮」字的榮民</li>
+          <li>健保卡上註記「福」字的低收入戶</li>
+        </ul>
+      </div>
+
+      <div class="col-span-5 border-t-2"></div>
+    </div>
+
+    <!-- 手機平板 -->
+    <div
+      class="lg:hidden grid grid-cols-[max(33%,auto)_1fr] gap-4 text-left font-noto-sans-tc"
+    >
+      <div class="text-[16px] sm:text-[18px] font-medium">就醫對象</div>
+      <div class="text-[16px] sm:text-[18px] font-medium">一般民眾(持健保卡)</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">部分負擔費用 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">50 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">掛號費 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">50 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">總計 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">150 元</div>
+
+      <div class="hidden sm:block text-[18px] font-medium">備註</div>
+      <div class="col-span-2 sm:col-span-1 text-[16px] sm:text-[18px]">
+        <b class="block sm:hidden">備註：</b>依據全民健康保險之門診部分負擔標準
+      </div>
+
+      <div class="col-span-2 border-t"></div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">就醫對象</div>
+      <div class="text-[16px] sm:text-[18px] font-medium">65歲以上(含)民眾</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">部分負擔費用 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">0 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">掛號費 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">100 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">總計 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">100 元</div>
+
+      <div class="hidden sm:block text-[18px] font-medium">備註</div>
+      <div class="col-span-2 sm:col-span-1 text-[16px] sm:text-[18px]">
+        <b class="block sm:hidden">備註：</b>需持健保卡就醫即享有掛號費優惠
+      </div>
+
+      <div class="col-span-2 border-t"></div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">就醫對象</div>
+      <div class="text-[16px] sm:text-[18px] font-medium">特殊身份註記者*</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">部分負擔費用 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">50 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">掛號費 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">100 元</div>
+
+      <div class="text-[16px] sm:text-[18px] font-medium">總計 / 次</div>
+      <div class="text-[16px] sm:text-[18px] text-primary">200元</div>
+
+      <div class="hidden sm:block text-[18px] font-medium">備註</div>
+      <div class="col-span-2 sm:col-span-1  text-[16px] sm:text-[18px]">
+        <p><b class="block sm:hidden">備註：</b>健保卡身份別及以下註記者:</p>
+        <ul class="list-disc list-inside">
+          <li>
+            健保卡註記有重大傷病
+            <span class="block pl-8">(心臟疾病、腎臟疾病、新陳代謝疾病等)</span>
+          </li>
+          <li>健保卡上註記「榮」字的榮民</li>
+          <li>健保卡上註記「福」字的低收入戶</li>
+        </ul>
+      </div>
+
+      <div class="col-span-2 border-t"></div>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center w-full px-8">
+    <a
+      routerLink="/registration-inquiry"
+      class="outline-btn primary-hover-style flex-shrink-0 justify-center self-center mt-6"
+      >我要掛號</a
+    >
+  </div>
+</div>
