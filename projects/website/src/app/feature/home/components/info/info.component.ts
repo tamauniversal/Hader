@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { EducationCardComponent } from "../../../../shared/components/education-card/education-card.component";
+import { EducationCardType } from '../../../../shared/components/education-card/education-card.interface';
 
 @Component({
   selector: 'app-info',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, EducationCardComponent],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss'
 })
@@ -18,7 +20,7 @@ export class InfoComponent {
   ];
 
   educationList = [
-    { tag: "日常\n保健", title: "飲食均衡\n教你怎麼吃", imgUrl: "/img/common/people-1.svg", url: "/education" },
-    { tag: "醫療\n新知", title: "關於流感疫苗\n你知道多少?", imgUrl: "/img/common/people-2.svg", url: "/education"}
+    { tag: "日常\n保健", title: "飲食均衡\n教你怎麼吃", type: EducationCardType.TYPE_1, url: "/education" },
+    { tag: "醫療\n新知", title: "關於流感疫苗\n你知道多少?", type: EducationCardType.TYPE_2, url: "/education"}
   ]
 }

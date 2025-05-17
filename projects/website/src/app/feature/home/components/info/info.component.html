@@ -83,7 +83,7 @@
         <!-- 左半內容 -->
         <div class="flex flex-col md:flex-row gap-8 w-full min-w-fit min-[1440px]:w-[937px]">
           @for (item of educationList; track item) {
-            <a [routerLink]="item.url" class="flex flex-1 md:w-0 p-8 border border-solid border-[#646464] rounded-[32px] cursor-pointer hover:border-primary hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] transition-all duration-300 ease-in-out">
+            <!-- <a [routerLink]="item.url" class="flex flex-1 md:w-0 p-8 border border-solid border-[#646464] rounded-[32px] cursor-pointer hover:border-primary hover:shadow-[6px_6px_10px_rgba(0,0,0,0.55)] transition-all duration-300 ease-in-out">
               <div class="flex flex-col flex-1 gap-4 justify-between">
                 <div class="w-fit p-2 text-[20px] text-white bg-black rounded-[12px] font-noto-sans-tc font-medium leading-none"
                      [innerText]="item.tag"></div>
@@ -91,7 +91,8 @@
                      [innerText]="item.title"></div>
               </div>
               <img [src]="item.imgUrl" alt="people-icon" class="flex-shrink-0 self-end h-[150px] lg:h-[200px] translate-y-8">
-            </a>
+            </a> -->
+            <app-education-card [item]="item"></app-education-card>
           }
         </div>
 

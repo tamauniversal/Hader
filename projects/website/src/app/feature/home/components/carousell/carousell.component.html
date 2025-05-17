@@ -17,7 +17,7 @@
     [class.ease-out]="hasTransition"
     [style.transform]="getCarouselTransform()"
   >
-    @for (banner of extendedBanners; track banner) {
+    @for (banner of extendedBanners; track $index) {
       <div class="flex-shrink-0 w-[calc(90vw-32px)]">
         <div class="w-full h-full mx-auto rounded-2xl shadow-lg overflow-hidden">
           <img
