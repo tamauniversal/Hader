@@ -1,1 +1,44 @@
-<p>news works!</p>
+<div
+  class="flex flex-col items-center gap-8 sm:gap-16 min-h-[calc(100vh-var(--header-height))] max-w-[500px] md:max-w-[1000px] 2xl:max-w-[1440px] mx-auto p-4 sm:p-8 lg:p-16"
+>
+  <div class="flex flex-col w-full min-w-fit">
+    @for (item of newsList; track item; let i = $index) {
+    <button
+      [ngClass]="{
+        '!bg-primary !text-white': isExpanded(i),
+        'bg-[#F0F0F0]': !isExpanded(i) && i % 2 === 0,
+        'bg-white': !isExpanded(i) && i % 2 !== 0
+      }"
+      class="primary-hover-style grid grid-cols-[auto_1fr] p-4 text-left *:whitespace-nowrap"
+      (click)="toggleItem(i)"
+    >
+      <div
+        class="pr-4 text-[20px] lg:pl-4 lg:text-[28px] font-roboto font-medium"
+      >
+        {{ item.date }}
+      </div>
+      <div class="lg:pl-30 text-[20px] lg:text-[28px] font-roboto truncate">
+        {{ item.title }}
+      </div>
+    </button>
+
+    <div
+      [@expandCollapse]="isExpanded(i) ? 'expanded' : 'collapsed'"
+      class="overflow-hidden"
+      [ngClass]="viewFinished ? '' : 'h-0'"
+    >
+      <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] p-4 bg-[#FEF4F6]">
+        <div
+          class="hidden md:block opacity-0 pr-4 text-[20px] lg:pl-4 lg:text-[28px] font-roboto font-medium"
+        >
+          {{ item.date }}
+        </div>
+        <!-- 占位，對齊 -->
+        <div class="lg:pl-30 text-[18px] font-roboto">
+          {{ item.content }}
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

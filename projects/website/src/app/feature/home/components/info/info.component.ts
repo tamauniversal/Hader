@@ -12,11 +12,11 @@ import { EducationCardType } from '../../../../shared/components/education-card/
 })
 export class InfoComponent {
   newsList = [
-    { date: "2025.03.01", title: "哈德診所即將於4月3日為您服務", url: "/news" },
-    { date: "2025.02.20", title: "哈德診所心臟血管專科醫師入駐", url: "/news" },
-    { date: "2025.01.02", title: "行政人員招募中", url: "/news" },
-    { date: "2025.02.20", title: "心臟血管專科醫師入駐", url: "/news" },
-    { date: "2025.01.02", title: "專業護理人員招募中", url: "/news" }
+    { date: "2025.03.01", title: "哈德診所即將於4月3日為您服務", url: "/news/1" },
+    { date: "2025.02.20", title: "哈德診所心臟血管專科醫師入駐", url: "/news/2" },
+    { date: "2025.01.02", title: "行政人員招募中", url: "/news/3" },
+    { date: "2025.02.20", title: "心臟血管專科醫師入駐", url: "/news/4" },
+    { date: "2025.01.02", title: "專業護理人員招募中", url: "/news/5" }
   ];
 
   educationList = [
