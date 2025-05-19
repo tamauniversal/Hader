@@ -97,7 +97,7 @@
   <div class="grid lg:flex grid-cols-2 md:grid-cols-3 gap-x-4 lg:gap-x-10 gap-y-10 w-full min-[1440px]:max-w-[936px] lg:justify-between lg:pb-[65px] items-center justify-self-center mt-30 mb-5 px-4 lg:px-16">
     @for (department of departments; track department) {
       <div class="flex flex-row lg:flex-col gap-2 lg:gap-4 items-center w-fit relative">
-        <img [src]="department.iconUrl" [alt]="department.name" class="h-10 lg:h-20">
+        <img [src]="department.iconUrl" [alt]="department.name" class="h-10 lg:h-20 select-none pointer-events-none">
         <div class="flex gap-2 lg:gap-4 items-center lg:absolute lg:left-1/2 lg:top-30 lg:-translate-x-1/2">
           <div class="flex items-center justify-center h-6 w-6 lg:h-9 lg:w-9 pb-0.5 text-[14px] lg:text-[18px] text-primary font-noto-sans-tc font-medium border border-primary rounded-full">
             {{ department.shortName }}

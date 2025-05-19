@@ -1,1 +1,30 @@
-<p>contact works!</p>
+<div class="flex flex-col items-center gap-8 sm:gap-16 min-h-[calc(100vh-var(--header-height))] 2xl:max-w-[1440px] mx-auto p-4 sm:p-8 lg:p-16">
+  <div class="h-100 w-full">
+    <iframe
+      width="100%%"
+      height="100%"
+      style="border: 0"
+      loading="lazy"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      [src]="mapUrl"    >
+    </iframe>
+    <!-- <google-map [center]="center" [zoom]="zoom" [options]="mapOptions">
+      @for (marker of markers; track $index) {
+        <map-marker [position]="marker"></map-marker>
+      }
+    </google-map> -->
+  </div>
+
+  <div class="flex flex-col md:flex-row gap-8 md:gap-0 w-full max-w-[350px] md:max-w-full p-5 md:p-0">
+    <div class="flex items-center justify-center gap-8 lg:gap-20 w-full md:w-1/2 md:border-r border-solid border-black">
+      <img src="/img/phone.svg" class="h-20 lg:h-24 select-none pointer-events-none">
+      <span class="flex flex-grow-1 md:flex-grow-0 gap-2 items-center justify-center text-[30px] lg:text-[40px]">0970 503 838</span>
+    </div>
+
+    <div class="flex items-center justify-center gap-8 lg:gap-20 w-full md:w-1/2">
+      <img src="/img/line-icon.svg" alt="line" class="h-20 lg:h-24 select-none pointer-events-none">
+      <img src="/img/qr-code.svg" alt="qr-code" class="flex-grow-1 md:flex-grow-0 h-30 lg:h-36 select-none pointer-events-none">
+    </div>
+  </div>
+</div>
