@@ -1,3 +1,7 @@
+:host {
+  @apply w-full;
+}
+
 .calendar-container {
   width: 100%;
   padding: 1rem;
@@ -10,6 +14,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    font-size: 1.25rem;
 
     & > button {
       font-size: 1.5rem;

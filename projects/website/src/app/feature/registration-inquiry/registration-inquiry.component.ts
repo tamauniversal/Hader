@@ -5,11 +5,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DropdownComponent, DropdownOption } from '../../shared/components/dropdown/dropdown.component';
 import { TooltipService, TooltipOptions } from '../../shared/components/tooltip/tooltip.service';
 import { CalendarComponent } from "../../shared/components/calendar/calendar.component";
+import { CalendarTriggerComponent } from '../../shared/components/calendar-trigger/calendar-trigger.component';
 
 @Component({
   selector: 'app-registration-inquiry',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, DropdownComponent, CalendarComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, DropdownComponent, CalendarTriggerComponent],
   templateUrl: './registration-inquiry.component.html',
   styleUrl: './registration-inquiry.component.scss'
 })
@@ -84,12 +85,12 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
 
   // 選中的醫師和時間
   selectedDoctor: DropdownOption | null = null;
-  selectedTime: DropdownOption | null = null;
+  selectedTime: string = '';
   today = new Date();
 
   // 添加對dropdown組件的引用
   @ViewChild('doctorRef') doctorDropdown!: DropdownComponent;
-  @ViewChild('timeRef') timeDropdown!: DropdownComponent;
+  @ViewChild('timeRef') timeCalendar!: CalendarTriggerComponent;
 
   constructor(
     private tooltipService: TooltipService,
@@ -134,8 +135,8 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
             // 註冊表單的特殊處理
             if (key === 'doctor' && this.doctorDropdown?.buttonRef?.nativeElement) {
               element = this.doctorDropdown.buttonRef.nativeElement;
-            } else if (key === 'appointmentTime' && this.timeDropdown?.buttonRef?.nativeElement) {
-              element = this.timeDropdown.buttonRef.nativeElement;
+            } else if (key === 'appointmentTime' && this.timeCalendar?.triggerBtn?.nativeElement) {
+              element = this.timeCalendar.triggerBtn.nativeElement;
             } else {
               element = document.getElementById(key);
             }
@@ -161,14 +162,14 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
   }
 
   // 處理下拉選單選擇變更
-  onDoctorSelected(option: DropdownOption) {
+  onDoctorSelected(option: DropdownOption): void {
     this.selectedDoctor = option;
     this.registrationForm.controls.doctor.setValue(String(option.value));
   }
 
-  onTimeSelected(option: DropdownOption) {
-    this.selectedTime = option;
-    this.registrationForm.controls.appointmentTime.setValue(String(option.value));
+  onAppointmentTimeSelected(event: Date): void {
+    this.selectedTime = event.toDateString();
+    this.registrationForm.controls.appointmentTime.setValue(this.selectedTime);
   }
 
   // 表單提交處理
@@ -186,6 +187,7 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
       // 顯示註冊資訊
       this.registrationComplete = true;
     } else {
+      console.log('註冊表單無效', this.registrationForm.value);
       // 先隱藏所有可能存在的錯誤提示
       this.tooltipService.hideAll();
 
@@ -198,7 +200,8 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
         if (control && control.invalid && control.touched) {
           // 生成錯誤信息
           let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
-
+          if(key === 'appointmentTime')
+          console.log('錯誤信息', this.timeCalendar.triggerBtn.nativeElement);
           // 針對下拉選單控件特殊處理
           if (key === 'doctor' && this.doctorDropdown?.buttonRef?.nativeElement) {
             // 使用父組件直接獲取下拉框DOM元素並顯示錯誤
@@ -210,12 +213,13 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
               duration: 5000,
               showArrow: true,
             });
-          } else if (key === 'appointmentTime' && this.timeDropdown?.buttonRef?.nativeElement) {
-            // 使用父組件直接獲取下拉框DOM元素並顯示錯誤
-            const dropdownElement = this.timeDropdown.buttonRef.nativeElement;
+          } else if (key === 'appointmentTime' && this.timeCalendar?.triggerBtn?.nativeElement) {
+            console.log('月曆錯誤')
+            // 使用父組件直接獲取月曆DOM元素並顯示錯誤
+            const calendarElement = this.timeCalendar.triggerBtn.nativeElement;
 
             // 顯示錯誤tooltip
-            this.tooltipService.show(errorMessage, dropdownElement, {
+            this.tooltipService.show(errorMessage, calendarElement, {
               position: 'bottom',
               duration: 5000,
               showArrow: true,

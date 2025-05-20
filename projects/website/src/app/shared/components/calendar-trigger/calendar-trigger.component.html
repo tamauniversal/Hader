@@ -1,0 +1,4 @@
+<button #triggerBtn class="flex items-center justify-between gap-2 w-full px-4 text-[16px] lg:text-[32px] text-left bg-white rounded-sm cursor-pointer" type="button" (click)="openCalendar()">
+  <span>{{ (selectedDate | date: 'yyyy/MM/dd') || '&nbsp;' }}</span>
+  <img src="img/icon/calendar.svg" alt="calendar" class="w-4 h-4 lg:w-6 lg:h-6" />
+</button>

@@ -27,7 +27,6 @@ export class CalendarComponent {
     this.currentDate = new Date(this.activeDate);
     this.generateCalendar();
     this.generateYears();
-    console.log('activeDate', this.activeDate);
   }
 
   generateYears() {

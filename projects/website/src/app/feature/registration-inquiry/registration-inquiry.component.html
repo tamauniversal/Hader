@@ -103,7 +103,7 @@
                 class="block font-noto-sans-tc text-[16px] lg:text-[32px] font-medium text-gray-700 pl-2 self-center"
                 >生日</label
               >
-              <div>
+              <!-- <div>
                 <input
                   #formInput
                   id="birthday"
@@ -117,7 +117,18 @@
                   class="w-full h-10 lg:h-12 px-4 py-2 font-roboto lg:text-[28px] border-0 bg-white rounded-sm focus:outline-none focus:ring-2 focus:ring-secondary placeholder:text-gray-400"
                   autocomplete="off"
                   />
-              </div>
+              </div> -->
+              <div class="relative"
+              [ngClass]="{
+                'error-input rounded-sm overflow-hidden':
+                  registrationSubmitted &&
+                  registrationForm.controls.birthday.invalid
+              }">
+              @if (isBrowser) {
+                <app-calendar-trigger #brithRef (dateChange)="onAppointmentTimeSelected($event)">
+                </app-calendar-trigger>
+              }
+            </div>
 
               <!-- 聯絡電話 -->
               <label
@@ -167,20 +178,15 @@
                 class="block font-noto-sans-tc text-[16px] lg:text-[32px] font-medium text-gray-700 pl-2 self-center"
                 >預約時間</label
               >
-              <div class="relative">
-                @if (isBrowser) {
-                <app-calendar></app-calendar>
-                <!-- <app-dropdown
-                  #formInput
-                  [options]="appointmentTimeOptions"
-                  [defaultText]="''"
-                  [error]="
+              <div class="relative"
+                [ngClass]="{
+                  'error-input rounded-sm overflow-hidden':
                     registrationSubmitted &&
                     registrationForm.controls.appointmentTime.invalid
-                  "
-                  (selectionChange)="onTimeSelected($event)"
-                  #timeRef
-                ></app-dropdown> -->
+                }">
+                @if (isBrowser) {
+                  <app-calendar-trigger #timeRef (dateChange)="onAppointmentTimeSelected($event)">
+                  </app-calendar-trigger>
                 }
               </div>
 
@@ -284,7 +290,7 @@
                     <p
                       class="font-noto-sans-tc text-[20px] sm:text-[24px] lg:text-[32px]"
                     >
-                      {{ selectedTime ? selectedTime.label : "未選擇" }}
+                      {{ selectedTime ? selectedTime : "未選擇" }}
                     </p>
                   </div>
 
