@@ -169,7 +169,8 @@
               >
               <div class="relative">
                 @if (isBrowser) {
-                <app-dropdown
+                <app-calendar></app-calendar>
+                <!-- <app-dropdown
                   #formInput
                   [options]="appointmentTimeOptions"
                   [defaultText]="''"
@@ -179,7 +180,7 @@
                   "
                   (selectionChange)="onTimeSelected($event)"
                   #timeRef
-                ></app-dropdown>
+                ></app-dropdown> -->
                 }
               </div>
 

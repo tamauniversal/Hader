@@ -4,11 +4,12 @@ import { RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownComponent, DropdownOption } from '../../shared/components/dropdown/dropdown.component';
 import { TooltipService, TooltipOptions } from '../../shared/components/tooltip/tooltip.service';
+import { CalendarComponent } from "../../shared/components/calendar/calendar.component";
 
 @Component({
   selector: 'app-registration-inquiry',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, DropdownComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, DropdownComponent, CalendarComponent],
   templateUrl: './registration-inquiry.component.html',
   styleUrl: './registration-inquiry.component.scss'
 })
@@ -84,6 +85,7 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
   // 選中的醫師和時間
   selectedDoctor: DropdownOption | null = null;
   selectedTime: DropdownOption | null = null;
+  today = new Date();
 
   // 添加對dropdown組件的引用
   @ViewChild('doctorRef') doctorDropdown!: DropdownComponent;
@@ -171,6 +173,7 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
 
   // 表單提交處理
   onRegistrationSubmit() {
+    console.log('onRegistrationSubmit');
     if (!this.isBrowser) return; // SSR環境不執行
 
     // 設置提交標記

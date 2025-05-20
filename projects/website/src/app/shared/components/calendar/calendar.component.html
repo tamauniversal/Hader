@@ -1,0 +1,44 @@
+<div class="default calendar-container">
+  <div class="calendar-header">
+    <button (click)="prevMonth($event)" class="cursor-pointer" type="button">
+      &#8249;
+    </button>
+    <div>
+      <select
+        class="appearance-none outline-none"
+        [value]="currentDate.getFullYear()"
+        (change)="onYearChange($event)"
+      >
+        @for (year of years; track year) {
+        <option [value]="year">{{ year }}年</option>
+        }
+      </select>
+      {{ currentDate | date : "MM月" : undefined : "zh-TW" }}
+    </div>
+    <button (click)="nextMonth($event)" class="cursor-pointer" type="button">
+      &#8250;
+    </button>
+  </div>
+
+  <div class="calendar-body">
+    @for (day of weekdays; track day) {
+    <div class="calendar-weekday">{{ day }}</div>
+    } @for (week of weeks; track week) {
+    <div class="calendar-date" style="display: contents">
+      @for (date of week; track date) {
+      <div class="calendar-date-cell">
+        <div
+          class="calendar-date-cell-content"
+          [class.outside-month]="date.getMonth() !== currentDate.getMonth()"
+          [class.active]="isActive(date)"
+          [class.disabled]="isDisabled(date)"
+          (click)="selectDate(date)"
+        >
+          <span>{{ date.getDate() }}</span>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>
