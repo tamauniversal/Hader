@@ -125,7 +125,7 @@
                   registrationForm.controls.birthday.invalid
               }">
               @if (isBrowser) {
-                <app-calendar-trigger #brithRef (dateChange)="onAppointmentTimeSelected($event)">
+                <app-calendar-trigger #birthRef (dateChange)="onBirthdaySelected($event)">
                 </app-calendar-trigger>
               }
             </div>
@@ -290,7 +290,8 @@
                     <p
                       class="font-noto-sans-tc text-[20px] sm:text-[24px] lg:text-[32px]"
                     >
-                      {{ selectedTime ? selectedTime : "未選擇" }}
+                      {{ registrationForm.controls.appointmentTime.value
+                          | date : "yyyy/MM/dd" }}
                     </p>
                   </div>
 

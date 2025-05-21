@@ -90,6 +90,7 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
 
   // 添加對dropdown組件的引用
   @ViewChild('doctorRef') doctorDropdown!: DropdownComponent;
+  @ViewChild('birthRef') birthCalendar!: CalendarTriggerComponent;
   @ViewChild('timeRef') timeCalendar!: CalendarTriggerComponent;
 
   constructor(
@@ -137,6 +138,8 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
               element = this.doctorDropdown.buttonRef.nativeElement;
             } else if (key === 'appointmentTime' && this.timeCalendar?.triggerBtn?.nativeElement) {
               element = this.timeCalendar.triggerBtn.nativeElement;
+            } else if (key === 'birthday' && this.birthCalendar?.triggerBtn?.nativeElement) {
+              element = this.birthCalendar.triggerBtn.nativeElement;
             } else {
               element = document.getElementById(key);
             }
@@ -172,6 +175,10 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
     this.registrationForm.controls.appointmentTime.setValue(this.selectedTime);
   }
 
+  onBirthdaySelected(event: Date): void {
+    this.registrationForm.controls.birthday.setValue(event.toDateString());
+  }
+
   // 表單提交處理
   onRegistrationSubmit() {
     console.log('onRegistrationSubmit');
@@ -200,8 +207,9 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
         if (control && control.invalid && control.touched) {
           // 生成錯誤信息
           let errorMessage = this.formErrors[key as keyof typeof this.formErrors] || '此欄位無效';
-          if(key === 'appointmentTime')
-          console.log('錯誤信息', this.timeCalendar.triggerBtn.nativeElement);
+          if(key === 'birthday') {
+            console.log('birthday', this.birthCalendar);
+          }
           // 針對下拉選單控件特殊處理
           if (key === 'doctor' && this.doctorDropdown?.buttonRef?.nativeElement) {
             // 使用父組件直接獲取下拉框DOM元素並顯示錯誤
@@ -214,9 +222,19 @@ export class RegistrationInquiryComponent implements OnInit, OnDestroy {
               showArrow: true,
             });
           } else if (key === 'appointmentTime' && this.timeCalendar?.triggerBtn?.nativeElement) {
-            console.log('月曆錯誤')
             // 使用父組件直接獲取月曆DOM元素並顯示錯誤
             const calendarElement = this.timeCalendar.triggerBtn.nativeElement;
+
+            // 顯示錯誤tooltip
+            this.tooltipService.show(errorMessage, calendarElement, {
+              position: 'bottom',
+              duration: 5000,
+              showArrow: true,
+            });
+          } else if (key === 'birthday' && this.birthCalendar?.triggerBtn?.nativeElement) {
+            // 使用父組件直接獲取月曆DOM元素並顯示錯誤
+            const calendarElement = this.birthCalendar.triggerBtn.nativeElement;
+            console.log('calendarElement', calendarElement);
 
             // 顯示錯誤tooltip
             this.tooltipService.show(errorMessage, calendarElement, {
