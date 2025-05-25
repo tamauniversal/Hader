@@ -1,4 +1,4 @@
-@import '../../../../styles.scss';
+@use '../../../../styles.scss';
 :host {
   @apply flex flex-1 w-full;
 }

@@ -11,13 +11,13 @@
         <div class="col-span-2 w-full h-[1px] bg-primary"></div>
         <div class="text-[32px] font-semibold">醫師</div>
         <div class="flex flex-col gap-3">
-          <label class="text-[20px] font-noto-sans-tc font-medium"
+          <label class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium"
             >主治項目：</label
           >
           <div class="flex flex-wrap gap-y-4">
             @for (specialty of doctor.specialties; track $index) {
             <div
-              class="text-[20px] font-noto-sans-tc font-medium whitespace-nowrap leading-none border-r border-black pr-2 mr-2 last:border-r-0"
+              class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium whitespace-nowrap leading-none border-r border-black pr-2 mr-2 last:border-r-0"
             >
               {{ specialty }}
             </div>
@@ -26,11 +26,11 @@
 
           <div class="flex flex-col mt-6 min-[1540px]:flex-row">
             <div class="flex flex-col flex-1 gap-3">
-              <label class="text-[20px] font-noto-sans-tc font-medium"
+              <label class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium"
                 >經歷：</label
               >
               @for (experience of doctor.experience; track $index) {
-              <div class="text-[20px] font-noto-sans-tc font-medium">
+              <div class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium">
                 {{ experience }}
               </div>
               }
@@ -54,15 +54,15 @@
           </div>
         </div>
         <div class="w-full h-[1px] bg-primary"></div>
-        <div class="text-[20px] font-semibold">醫師</div>
+        <div class="text-[16px] md:text-[20px] font-semibold">醫師</div>
         <div class="flex flex-col gap-3 mt-20">
-          <label class="text-[20px] font-noto-sans-tc font-medium"
+          <label class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium"
             >主治項目：</label
           >
-          <div class="flex flex-col flex-wrap gap-y-4">
+          <div class="flex flex-col flex-wrap gap-y-2 mg:gap-y-4">
             @for (specialty of doctor.specialties; track $index) {
             <div
-              class="text-[20px] font-noto-sans-tc font-medium leading-none pl-4"
+              class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium leading-none pl-4"
             >
               {{ specialty }}
             </div>
@@ -70,12 +70,12 @@
           </div>
 
           <div class="flex flex-col mt-6 min-[1540px]:flex-row">
-            <div class="flex flex-col flex-1 gap-3">
-              <label class="text-[20px] font-noto-sans-tc font-medium"
+            <div class="flex flex-col flex-1 gap-y-2 md:gap-3">
+              <label class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium"
                 >經歷：</label
               >
               @for (experience of doctor.experience; track $index) {
-              <div class="text-[20px] font-noto-sans-tc font-medium pl-4">
+              <div class="text-[16px] md:text-[20px] font-noto-sans-tc font-medium leading-none pl-4">
                 {{ experience }}
               </div>
               }
