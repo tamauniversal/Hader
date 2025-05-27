@@ -7,6 +7,7 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 registerLocaleData(zh); // ✅ 登記中文語系
 export const appConfig: ApplicationConfig = {
@@ -22,6 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     importProvidersFrom(OverlayModule),
+    provideHttpClient(withFetch()),
     { provide: LOCALE_ID, useValue: 'zh' }, // 設定預設語系為中文
   ]
 };
