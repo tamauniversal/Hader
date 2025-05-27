@@ -20,7 +20,7 @@ export class HeaderComponent {
 
   navItems: NavItem[] = [
     { path: '/about', label: '關於哈德' },
-    { path: '/about', label: '門診時間表', fragment: 'schedule' },
+    { path: '/schedule', label: '門診時間表' },
     { path: '/registration-inquiry', label: '掛號及查詢' },
     { path: '/fees', label: '收費標準' },
     { path: '/progress', label: '看診進度' },

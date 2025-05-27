@@ -1,0 +1,178 @@
+<div
+  class="flex flex-col items-center justify-evenly relative h-[calc(100vh-var(--header-height))] min-h-[600px] mb-10 lg:mb-20"
+>
+
+  <!-- 專注領域 -->
+  <div class="grid lg:flex grid-cols-2 gap-x-4 lg:gap-x-10 gap-y-10 w-full min-[1440px]:max-w-[936px] lg:justify-between lg:pb-[50px] items-center justify-self-center px-4 lg:px-16">
+    @for (department of departments; track department) {
+      <div class="flex flex-row lg:flex-col gap-2 lg:gap-4 items-center w-fit relative">
+        <img [src]="department.iconUrl" [alt]="department.name" class="h-10 lg:h-20 select-none pointer-events-none">
+        <div class="flex gap-2 lg:gap-4 items-center lg:absolute lg:left-1/2 lg:top-24 lg:-translate-x-1/2">
+          <div class="flex items-center justify-center h-6 w-6 lg:h-9 lg:w-9 pb-0.5 text-[14px] lg:text-[18px] text-primary font-noto-sans-tc font-medium border border-primary rounded-full">
+            {{ department.shortName }}
+          </div>
+          <h4 class="text-[16px] lg:text-[20px] font-noto-sans-tc font-medium whitespace-nowrap">
+            {{ department.name }}
+          </h4>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- 一週行事曆 -->
+  <div
+    class="container mx-auto max-w-[1280px] px-4 h-[calc(60%-4rem)] lg:h-1/2 max-h-[600px] flex flex-col"
+  >
+    <!-- 標題和週次切換 -->
+    <div
+      class="flex items-center justify-center bg-primary text-white py-3 px-5 relative"
+    >
+      <div class="flex items-center justify-around w-full max-w-[500px]">
+        <button
+          (click)="previousWeek()"
+          class="hover:bg-primary-dark p-2 transition-colors duration-200 cursor-pointer"
+          [ngClass]="{ 'opacity-0 pointer-events-none': !canGoToPreviousWeek }"
+        >
+          <div
+            class="w-0 h-0 border-t-[10px] border-t-transparent border-r-[14px] border-r-white border-b-[10px] border-b-transparent"
+          ></div>
+        </button>
+        <h2 class="font-roboto text-[20px] lg:text-[24px] font-medium tracking-[.25rem]">
+          {{ weekDateRange }}
+        </h2>
+        <button
+          (click)="nextWeek()"
+          class="hover:bg-primary-dark p-2 transition-colors duration-200 cursor-pointer"
+          [ngClass]="{ 'opacity-0 pointer-events-none': !canGoToNextWeek }"
+        >
+          <div
+            class="w-0 h-0 border-t-[10px] border-t-transparent border-l-[14px] border-l-white border-b-[10px] border-b-transparent"
+          ></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- 行事曆表格 -->
+    <div class="overflow-auto flex-grow">
+      <table class="w-full border-collapse table-fixed h-full border-none">
+        <!-- 表頭 -->
+        <thead class="h-1/3">
+          <tr class="h-full">
+            <th
+              class="sm:p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-black border-b border-b-black"
+            >
+              <span class="whitespace-nowrap">門診</span>
+              <span class="whitespace-nowrap">時間</span>
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-[#C8C8C8] border-b border-b-black"
+            >
+              一
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-[#C8C8C8] border-b border-b-black"
+            >
+              二
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-[#C8C8C8] border-b border-b-black"
+            >
+              三
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-[#C8C8C8] border-b border-b-black"
+            >
+              四
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-r border-r-[#C8C8C8] border-b border-b-black"
+            >
+              五
+            </th>
+            <th
+              class="p-2 font-noto-sans-tc text-[20px] lg:text-[24px] font-semibold text-black w-1/7 border-0 border-b border-b-black"
+            >
+              六
+            </th>
+          </tr>
+        </thead>
+        <!-- 表身 -->
+        <tbody class="divide-y divide-[#C8C8C8] h-2/3">
+          <!-- 上午 -->
+          <tr class="h-1/2">
+            <td
+              class="sm:p-2 font-noto-sans-tc text-[16px] lg:text-[26px] font-semibold text-black sm:text-center border-0 border-r border-r-black border-b border-b-[#C8C8C8]"
+            >
+              07:30-12:00
+            </td>
+            @for (day of [1, 2, 3, 4, 5, 6]; track day) {
+            <td
+              class="p-2 border-0 border-r border-r-[#C8C8C8] border-b border-b-[#C8C8C8] last:border-r-0"
+            >
+              <div
+                class="flex flex-wrap justify-center content-start md:content-center md:items-center h-full gap-2"
+              >
+                @if (isSlotEmpty(day, 'morning')) {
+                <div
+                  class="flex items-center justify-center h-6 w-6 lg:h-11 lg:w-11 pb-0.5 text-[14px] lg:text-[20px] font-noto-sans-tc font-medium rounded-full bg-gray-300 text-white"
+                >
+                  休
+                </div>
+                } @else { @for (doctorId of getDoctorsForSlot(day, 'morning');
+                track doctorId) {
+                <div
+                  class="flex items-center justify-center h-6 w-6 lg:h-11 lg:w-11 pb-0.5 text-[14px] lg:text-[20px] font-noto-sans-tc font-medium rounded-full bg-black text-white"
+                >
+                  {{ getDoctorName(doctorId) }}
+                </div>
+                } }
+              </div>
+            </td>
+            }
+          </tr>
+          <!-- 下午 -->
+          <tr class="h-1/2">
+            <td
+              class="sm:p-2 font-noto-sans-tc text-[16px] lg:text-[26px] font-semibold text-black sm:text-center border-0 border-r border-r-black"
+            >
+              15:00-19:00
+            </td>
+            @for (day of [1, 2, 3, 4, 5, 6]; track day) {
+            <td
+              class="p-2 border-0 border-r border-r-[#C8C8C8] last:border-r-0"
+            >
+              <div
+                class="flex flex-wrap justify-center content-start md:content-center md:items-center h-full gap-2"
+              >
+                @if (isSlotEmpty(day, 'afternoon')) {
+                <div
+                  class="flex items-center justify-center h-6 w-6 lg:h-11 lg:w-11 pb-0.5 text-[14px] lg:text-[20px] font-noto-sans-tc font-medium rounded-full bg-gray-300 text-white"
+                >
+                  休
+                </div>
+                } @else { @for (doctorId of getDoctorsForSlot(day, 'afternoon');
+                track doctorId) {
+                <div
+                  class="flex items-center justify-center h-6 w-6 lg:h-11 lg:w-11 pb-0.5 text-[14px] lg:text-[20px] font-noto-sans-tc font-medium rounded-full bg-black text-white"
+                >
+                  {{ getDoctorName(doctorId) }}
+                </div>
+                } }
+              </div>
+            </td>
+            }
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 掛號按钮 -->
+  <div class="flex flex-shrink-0 items-center justify-center w-full px-8">
+    <a
+      routerLink="/registration-inquiry"
+      class="outline-btn primary-hover-style justify-center"
+      >我要掛號</a
+    >
+  </div>
+</div>

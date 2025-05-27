@@ -12,6 +12,11 @@ export const routes: Routes = [
       import('./feature/about/about.component').then((m) => m.AboutComponent),
   },
   {
+    path: 'schedule',
+    loadComponent: () =>
+      import('./feature/schedule/schedule.component').then((m) => m.ScheduleComponent),
+  },
+  {
     path: 'registration-inquiry',
     loadComponent: () =>
       import('./feature/registration-inquiry/registration-inquiry.component').then((m) => m.RegistrationInquiryComponent),
